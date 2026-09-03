@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "outline-variant": "#e2e8f0",
+                "outline": "#94a3b8",
+                "on-tertiary-fixed-variant": "#005320",
+                "on-tertiary-container": "#c7ffca",
+                "on-background": "#0f172a",
+                "primary-fixed-dim": "#b4c5ff",
+                "surface-variant": "#f1f5f9",
+                "inverse-on-surface": "#eaf1ff",
+                "on-tertiary-fixed": "#002109",
+                "inverse-surface": "#213145",
+                "on-primary-fixed": "#00174b",
+                "on-primary-fixed-variant": "#003ea8",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#007f36",
+                "surface-bright": "#ffffff",
+                "primary-fixed": "#dbe1ff",
+                "on-surface-variant": "#64748b",
+                "surface-container": "#f1f5f9",
+                "surface-tint": "#0053db",
+                "on-secondary": "#ffffff",
+                "tertiary": "#006329",
+                "on-secondary-container": "#5c647a",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed": "#7ffc97",
+                "error-container": "#ffdad6",
+                "background": "#f8fafc",
+                "surface-container-low": "#ffffff",
+                "surface-dim": "#e2e8f0",
+                "on-surface": "#0f172a",
+                "tertiary-fixed-dim": "#62df7d",
+                "secondary-fixed": "#dae2fd",
+                "surface-container-highest": "#e2e8f0",
+                "secondary-fixed-dim": "#bec6e0",
+                "primary-container": "#2563eb",
+                "primary": "#004ac6",
+                "on-secondary-fixed-variant": "#3f465c",
+                "surface": "#ffffff",
+                "secondary": "#565e74",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-container": "#eeefff",
+                "on-primary": "#ffffff",
+                "secondary-container": "#dae2fd",
+                "on-secondary-fixed": "#131b2e",
+                "surface-container-high": "#e9eff7",
+                "inverse-primary": "#b4c5ff",
+                "on-error": "#ffffff",
+                "error": "#dc2626"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "layout-gutter": "1rem",
+                "space-xl": "2rem",
+                "space-lg": "1.5rem",
+                "space-3xl": "4rem",
+                "space-xs": "0.25rem",
+                "space-xxs": "0.125rem",
+                "layout-margin-mobile": "1rem",
+                "space-sm": "0.5rem",
+                "space-2xl": "3rem",
+                "layout-margin-desktop": "2rem",
+                "space-md": "0.75rem",
+                "space-base": "1rem"
+        },
+        "fontFamily": {
+                "headline-lg": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "mono-sm": ["JetBrains Mono"],
+                "mono-lg": ["JetBrains Mono"],
+                "label-md": ["Inter"],
+                "headline-xl-mobile": ["Inter"],
+                "headline-xl": ["Inter"],
+                "headline-md": ["Inter"],
+                "mono-md": ["JetBrains Mono"],
+                "headline-sm": ["Inter"],
+                "label-sm": ["Inter"],
+                "display-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-code-lg": ["JetBrains Mono"],
+                "label-code-sm": ["JetBrains Mono"],
+                "metric-stat": ["JetBrains Mono"]
+        },
+        "fontSize": {
+                "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                "mono-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+                "mono-lg": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                "label-md": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                "headline-xl-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                "mono-md": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+                "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                "label-code-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                "label-code-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                "metric-stat": ["28px", { "lineHeight": "1", "letterSpacing": "-0.03em", "fontWeight": "600" }]
+        }
+      }
+    }
+  };
+</script></head><body class="bg-background font-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200"><div class="h-16 w-full px-space-xl flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" href="#"><img alt="Security Health Shield Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UyL8wV1IoHYFWmCuk65rVdibDx-qYgV0RD6QhInYyWTK3yNdcuFAAuILTr18MhWRtBgXodAuX_BMTQoHdPkaXowmBAag1eykhpvTaP8hskqXPtvZ045A8EkqX0FYu02pzuVLwKnuJdkBdfhNo3RQQv9johLOqgypTwOnoCMDktOEsb-6RrgB7Ajl0EMuQFnmSuf9owqUQMqAVq5L27p9KzRqOKxvLKIZIrqQB3H16znIUAywcWNREB9s0"/><span class="font-headline-sm text-headline-sm text-slate-900 tracking-tight font-semibold">Security Health</span></a><nav class="hidden lg:flex items-center gap-space-md"><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="scanner" href="#">Analyseur</a><a aria-current="page" class="transition-colors text-slate-900 font-semibold bg-slate-100 px-space-sm py-1 rounded text-body-md" data-path="reports" href="#">Rapports</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="api-cli" href="#">API &amp; CLI</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="documentation" href="#">Documentation</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="status" href="#">GitHub / Statut</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-200 rounded"><span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span><span class="font-label-code-sm text-label-code-sm text-emerald-800 tracking-tight font-medium">Moteur v2.4.0 Actif</span></div><button class="hidden md:flex items-center gap-space-sm px-3 py-1.5 bg-slate-50 border border-slate-200 rounded text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-colors" type="button"><span class="material-symbols-outlined text-sm">search</span><span class="font-body-sm text-body-sm">Rechercher dans la télémétrie...</span><kbd class="font-label-code-sm text-label-code-sm px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 text-[10px]">⌘K</kbd></button><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-4qwm60Rkld-euQWFO_YPvvm14irVg-qe4nVRymUF97fpsiUloACQbmnWe6orkRYV0Vo7m9XdIjAOvJBf82zonvze86PmMsGxoNGLzArQqQPEwgF3gwlPHzeVUYkp6RgR9RDfkHfPQH5LstXYhMuB1z61WfUcgpTzjVAwkfAWwekP-dSCOHGxKdBvoBmqi_jH33cLEM5nSO7w9Gkv8npclME3Oe_O114gGr1QNm_CEdWfsH9rkK6k"/></div></div></div></header><main class="w-full pt-16 bg-[#f8fafc] min-h-[calc(100vh-16rem)]"><div class="flex flex-col w-full">
+<!-- Target Audit Header Strip -->
+<section class="w-full bg-white border-b border-slate-200 px-space-md sm:px-space-xl py-space-lg shadow-sm">
+<div class="max-w-7xl mx-auto flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+            CIBLE ACTIVE
+          </span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">ID: scn_8f29c41b9e02</span>
+</div>
+<div class="flex items-baseline gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-slate-900 font-semibold tracking-tight truncate">
+            https://yourwebsite.com
+          </h1>
+<a class="text-blue-600 hover:text-blue-700 font-medium text-body-sm font-body-sm inline-flex items-center gap-1" href="https://yourwebsite.com" rel="noopener noreferrer" target="_blank">
+            consulter le site <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-space-3xs text-slate-500 font-label-code-sm text-label-code-sm pt-space-3xs">
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-400">schedule</span>
+            24 octobre 2024 à 14:32 UTC
+          </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-400">timer</span>
+            Latence : 3.4s
+          </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-400">memory</span>
+            Moteur : v2.4.0 (TLS 1.3 / HTTP/2)
+          </span>
+</div>
+</div>
+<!-- Quick Action Toolset -->
+<div class="flex flex-wrap items-center gap-2 pt-space-xs xl:pt-0">
+<button class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white rounded font-label-code-lg text-label-code-lg hover:bg-blue-700 transition-colors shadow-sm font-medium" id="rescan-btn">
+<span class="material-symbols-outlined text-base">refresh</span>
+<span>Réanalyser le domaine</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded font-label-code-sm text-label-code-sm hover:bg-slate-50 transition-colors shadow-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-base text-blue-600">picture_as_pdf</span>
+<span>Exporter en PDF</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded font-label-code-sm text-label-code-sm hover:bg-slate-50 transition-colors shadow-sm" id="copy-json-btn">
+<span class="material-symbols-outlined text-base text-slate-500">code</span>
+<span id="copy-json-label">Copier le JSON</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded font-label-code-sm text-label-code-sm hover:bg-slate-50 transition-colors shadow-sm" id="share-btn">
+<span class="material-symbols-outlined text-base text-slate-500">share</span>
+<span>Partager le rapport</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content Body -->
+<div class="w-full max-w-7xl mx-auto px-space-md sm:px-space-xl py-space-xl flex flex-col gap-space-xl">
+<!-- Top Score & Health Distribution Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+<!-- Circular Score Radar Card -->
+<div class="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-space-lg flex flex-col justify-between relative overflow-hidden shadow-sm">
+<div class="flex flex-col sm:flex-row items-center gap-space-lg z-10">
+<!-- Circular Progress SVG -->
+<div class="relative w-44 h-44 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 120 120">
+<circle class="text-slate-100" cx="60" cy="60" fill="none" r="50" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-blue-600 transition-all duration-1000 ease-out" cx="60" cy="60" fill="none" r="50" stroke="currentColor" stroke-dasharray="314.159" stroke-dashoffset="69.11" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-metric-stat text-[32px] text-slate-900 leading-none font-bold">78</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-400">/ 100</span>
+<span class="mt-1 font-label-code-sm text-label-code-sm font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Grade B</span>
+</div>
+</div>
+<!-- Score Narrative -->
+<div class="flex flex-col gap-space-xs text-center sm:text-left">
+<div class="inline-flex items-center gap-1.5 self-center sm:self-start px-2 py-0.5 rounded bg-blue-50 border border-blue-100 font-label-code-sm text-label-code-sm text-blue-700 font-medium">
+<span class="material-symbols-outlined text-sm">shield_with_heart</span>
+<span>ÉVALUATION SYNTHÉTIQUE DE SÉCURITÉ</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-slate-900 font-semibold">
+              Bonne posture de sécurité de base avec 2 écarts de configuration prioritaires.
+            </h2>
+<p class="font-body-md text-body-md text-slate-600">
+              Le chiffrement de la couche de transport est rigoureusement appliqué. La mise en place de directives Content-Security-Policy strictes et de protections de cadrage est requise pour neutraliser les risques d'injection de scripts et de clickjacking.
+            </p>
+</div>
+</div>
+<!-- Telemetry Breakdown Chips -->
+<div class="grid grid-cols-3 gap-3 pt-space-lg mt-space-md border-t border-slate-100 z-10">
+<div class="bg-slate-50 border border-slate-200/80 px-4 py-3 rounded-lg flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-slate-500 uppercase tracking-wider font-semibold">CONTRÔLES VALIDÉS</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-metric-stat text-2xl text-emerald-700 font-bold">14</span>
+<span class="text-body-sm font-body-sm text-slate-500 hidden sm:inline">tests conformes</span>
+</div>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 px-4 py-3 rounded-lg flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-slate-500 uppercase tracking-wider font-semibold">ATTENTION REQUISE</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="font-metric-stat text-2xl text-amber-700 font-bold">3</span>
+<span class="text-body-sm font-body-sm text-slate-500 hidden sm:inline">modérés</span>
+</div>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 px-4 py-3 rounded-lg flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-slate-500 uppercase tracking-wider font-semibold">ANOMALIE IMPORTANTE</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span class="font-metric-stat text-2xl text-red-600 font-bold">1</span>
+<span class="text-body-sm font-body-sm text-slate-500 hidden sm:inline">critique</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Infrastructure Context Card & Sparkline -->
+<div class="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-slate-500 uppercase tracking-wider font-semibold">VÉRIFICATION PÉRIMÉTRIQUE</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span> Validé en direct
+            </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Origin Telemetry Stack</h3>
+<div class="grid grid-cols-2 gap-2 pt-2 font-label-code-sm text-label-code-sm">
+<div class="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
+<span class="text-slate-500 text-xs">Signature du serveur</span>
+<span class="text-slate-900 font-semibold truncate">cloudflare-nginx</span>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
+<span class="text-slate-500 text-xs">Certificat TLS</span>
+<span class="text-slate-900 font-semibold truncate">ECDSA P-256 (Valid)</span>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
+<span class="text-slate-500 text-xs">Routage IP</span>
+<span class="text-slate-900 font-semibold truncate">104.21.58.122</span>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
+<span class="text-slate-500 text-xs">DNSSEC</span>
+<span class="text-emerald-700 font-semibold">Signé &amp; Valide</span>
+</div>
+</div>
+</div>
+<!-- Inline Historical Sparkline (30-day Trend) -->
+<div class="pt-space-md flex flex-col gap-1.5 border-t border-slate-100">
+<div class="flex items-center justify-between font-label-code-sm text-label-code-sm text-slate-500">
+<span>Évolution du score (30 derniers jours)</span>
+<span class="text-blue-600 font-semibold">+4 pts d'amélioration</span>
+</div>
+<div class="h-16 w-full bg-slate-50 border border-slate-200/80 rounded p-2 flex items-end">
+<svg class="w-full h-full overflow-visible" fill="none" preserveaspectratio="none" viewbox="0 0 300 48">
+<path class="text-blue-600" d="M0,40 L30,38 L60,42 L90,34 L120,36 L150,28 L180,30 L210,22 L240,24 L270,14 L300,12" stroke="currentColor" stroke-width="2.5"></path>
+<path class="text-blue-100" d="M0,40 L30,38 L60,42 L90,34 L120,36 L150,28 L180,30 L210,22 L240,24 L270,14 L300,12 L300,48 L0,48 Z" fill="currentColor" opacity="0.6"></path>
+<circle class="fill-blue-600 stroke-white stroke-2" cx="300" cy="12" r="4"></circle>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Breakdown 6-Col Grid -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-slate-900 font-semibold tracking-tight">Catégories principales d'audit</h2>
+<span class="font-label-code-sm text-label-code-sm text-slate-500 font-medium">6 vecteurs examinés</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+<!-- 1. HTTPS -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-emerald-600 text-lg">lock</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-semibold">100%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm">HTTPS</div>
+<div class="font-label-code-sm text-label-code-sm text-emerald-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Conforme
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<!-- 2. Security Headers -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-amber-600 text-lg">view_compact_alt</span>
+<span class="font-label-code-sm text-label-code-sm text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded font-semibold">62%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm truncate">En-têtes de sécurité</div>
+<div class="font-label-code-sm text-label-code-sm text-amber-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> Attention
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 62%;"></div>
+</div>
+</div>
+<!-- 3. Cookies -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-emerald-600 text-lg">cookie</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-semibold">90%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm">Cookies</div>
+<div class="font-label-code-sm text-label-code-sm text-emerald-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Conforme
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 90%;"></div>
+</div>
+</div>
+<!-- 4. Configuration -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-red-600 text-lg">tune</span>
+<span class="font-label-code-sm text-label-code-sm text-red-700 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded font-semibold">55%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm truncate">Configuration</div>
+<div class="font-label-code-sm text-label-code-sm text-red-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-red-600"></span> Important
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-red-500 h-full rounded-full" style="width: 55%;"></div>
+</div>
+</div>
+<!-- 5. Mixed Content -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-emerald-600 text-lg">layers</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-semibold">100%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm truncate">Contenu mixte</div>
+<div class="font-label-code-sm text-label-code-sm text-emerald-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Conforme
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<!-- 6. Forms -->
+<div class="bg-white border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all p-4 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-emerald-600 text-lg">password</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-semibold">100%</span>
+</div>
+<div>
+<div class="font-headline-sm text-slate-900 font-semibold text-sm">Formulaires</div>
+<div class="font-label-code-sm text-label-code-sm text-emerald-700 flex items-center gap-1.5 mt-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Conforme
+            </div>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Filter & Search Bar -->
+<div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-sm bg-white border border-slate-200 p-2 rounded-xl shadow-sm">
+<div class="flex flex-wrap items-center gap-1.5" id="filter-tabs">
+<button class="filter-tab px-3 py-1.5 rounded-lg text-slate-900 font-label-code-sm text-label-code-sm bg-slate-100 font-semibold transition-colors" data-filter="all">
+          Tous les constats (18)
+        </button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-label-code-sm text-label-code-sm transition-colors" data-filter="important">
+          Critiques (1)
+        </button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-label-code-sm text-label-code-sm transition-colors" data-filter="attention">
+          À surveiller (3)
+        </button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 font-label-code-sm text-label-code-sm transition-colors" data-filter="passed">
+          Conformes (14)
+        </button>
+</div>
+<div class="relative min-w-[240px]">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-sm text-slate-400">search</span>
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-900 font-body-sm text-body-sm pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500 transition-colors placeholder:text-slate-400" id="issue-search" placeholder="Filtrer les résultats..." type="text"/>
+</div>
+</div>
+<!-- Detailed Findings List -->
+<div class="flex flex-col gap-space-md" id="findings-container">
+<!-- Card 1: Missing CSP (Red / Critical) -->
+<article class="finding-card bg-white border border-red-200/80 rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm" data-severity="important">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-red-600 text-xl p-2 bg-red-50 border border-red-200 rounded-lg">error</span>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-red-700 font-semibold uppercase tracking-wider">ANOMALIE IMPORTANTE</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">Security Headers</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-red-600 font-medium">Impact : Élevé</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mt-1">
+                L'en-tête Content-Security-Policy (CSP) est absent
+              </h3>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 font-semibold self-start">
+            Statut : Manquant
+          </span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          Sans en-tête Content-Security-Policy, votre site web est exposé aux vulnérabilités Cross-Site Scripting (XSS) et à l'injection de scripts malveillants. Les navigateurs exploitent le CSP pour restreindre l'origine des ressources exécutables autorisées.
+        </p>
+<!-- Interactive Remediation Code Snippet -->
+<div class="bg-slate-50 border border-slate-200 rounded-lg p-space-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-blue-700 flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-sm">build_circle</span> Directive de remédiation recommandée
+            </span>
+<button class="copy-snippet-btn text-slate-500 hover:text-slate-800 font-label-code-sm text-label-code-sm flex items-center gap-1 transition-colors" data-copy="Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com; object-src 'none';">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+<span>Copier la configuration</span>
+</button>
+</div>
+<pre class="font-label-code-sm text-label-code-sm text-slate-800 overflow-x-auto p-2.5 bg-white border border-slate-200 rounded selection:bg-blue-600 selection:text-white"><code>Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com; object-src 'none';</code></pre>
+</div>
+<div class="flex items-center gap-space-md text-body-sm font-body-sm pt-space-2xs">
+<span class="text-slate-500">Guides de référence :</span>
+<a class="text-blue-600 hover:underline inline-flex items-center gap-1 font-medium" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" rel="noopener noreferrer" target="_blank">
+            Guide CSP MDN <span class="material-symbols-outlined text-xs">north_east</span>
+</a>
+<a class="text-blue-600 hover:underline inline-flex items-center gap-1 font-medium" href="https://owasp.org/www-project-secure-headers/#content-security-policy" rel="noopener noreferrer" target="_blank">
+            Aide-mémoire OWASP <span class="material-symbols-outlined text-xs">north_east</span>
+</a>
+</div>
+</article>
+<!-- Card 2: HSTS Enabled (Green / Passed) -->
+<article class="finding-card bg-white border border-slate-200 rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm" data-severity="passed">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-emerald-600 text-xl p-2 bg-emerald-50 border border-emerald-200 rounded-lg">verified</span>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 font-semibold uppercase tracking-wider">CONFORME</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">HTTPS &amp; Transport</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 font-medium">Impact : Élevé</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mt-1">
+                Strict-Transport-Security (HSTS) est correctement configuré
+              </h3>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold self-start">
+            Statut : Activé (Conforme)
+          </span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          L'en-tête HSTS informe les navigateurs que toutes les connexions doivent impérativement transiter en HTTPS, neutralisant ainsi les attaques de type SSL-stripping.
+        </p>
+<div class="bg-slate-50 border border-slate-200 rounded-lg p-2.5 flex items-center justify-between font-label-code-sm text-label-code-sm">
+<span class="text-slate-500">Valeur détectée à l'origine :</span>
+<code class="text-emerald-700 bg-white border border-emerald-200 px-2 py-0.5 rounded font-medium">max-age=31536000; includeSubDomains; preload</code>
+</div>
+</article>
+<!-- Card 3: X-Content-Type-Options (Green / Passed) -->
+<article class="finding-card bg-white border border-slate-200 rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm" data-severity="passed">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-emerald-600 text-xl p-2 bg-emerald-50 border border-emerald-200 rounded-lg">check_circle</span>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 font-semibold uppercase tracking-wider">CONFORME</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">Security Headers</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-emerald-700 font-medium">Impact : Modéré</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mt-1">
+                X-Content-Type-Options est configuré sur nosniff
+              </h3>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold self-start">
+            Statut : Activé (Conforme)
+          </span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          Empêche le contournement des types MIME par les navigateurs. Avec `nosniff`, les scripts déguisés en images ou fichiers texte ne sont pas interprétés comme exécutables.
+        </p>
+<div class="bg-slate-50 border border-slate-200 rounded-lg p-2.5 flex items-center justify-between font-label-code-sm text-label-code-sm">
+<span class="text-slate-500">Valeur détectée à l'origine :</span>
+<code class="text-emerald-700 bg-white border border-emerald-200 px-2 py-0.5 rounded font-medium">X-Content-Type-Options: nosniff</code>
+</div>
+</article>
+<!-- Card 4: Frame Options / Clickjacking (Amber / Needs Attention) -->
+<article class="finding-card bg-white border border-amber-200/80 rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm" data-severity="attention">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-amber-600 text-xl p-2 bg-amber-50 border border-amber-200 rounded-lg">warning</span>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-amber-700 font-semibold uppercase tracking-wider">ATTENTION REQUISE</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">Configuration</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-amber-700 font-medium">Impact : Modéré</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mt-1">
+                X-Frame-Options ou directive CSP frame-ancestors absent
+              </h3>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-semibold self-start">
+            Statut : Attention requise
+          </span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          Votre site pourrait être intégré dans une iframe sur des domaines tiers, ouvrant la voie à des attaques par clickjacking où les utilisateurs cliquent sur des éléments invisibles superposés.
+        </p>
+<div class="bg-slate-50 border border-slate-200 rounded-lg p-space-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-blue-700 flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-sm">construction</span> Directive de remédiation
+            </span>
+<button class="copy-snippet-btn text-slate-500 hover:text-slate-800 font-label-code-sm text-label-code-sm flex items-center gap-1 transition-colors" data-copy="X-Frame-Options: DENY">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+<span>Copier</span>
+</button>
+</div>
+<pre class="font-label-code-sm text-label-code-sm text-slate-800 overflow-x-auto p-2.5 bg-white border border-slate-200 rounded selection:bg-blue-600 selection:text-white"><code>X-Frame-Options: DENY
+# Or equivalent modern directive in CSP:
+Content-Security-Policy: frame-ancestors 'none';</code></pre>
+</div>
+</article>
+<!-- Card 5: Session Cookie SameSite (Amber / Needs Attention) -->
+<article class="finding-card bg-white border border-amber-200/80 rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm" data-severity="attention">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-amber-600 text-xl p-2 bg-amber-50 border border-amber-200 rounded-lg">lock_reset</span>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-amber-700 font-semibold uppercase tracking-wider">ATTENTION REQUISE</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500">Cookies &amp; Sessions</span>
+<span class="text-slate-400 text-body-sm">•</span>
+<span class="font-label-code-sm text-label-code-sm text-amber-700 font-medium">Impact : Faible</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mt-1">
+                Le cookie de session ne dispose pas de l'attribut SameSite=Strict
+              </h3>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-semibold self-start">
+            Statut : Attention requise
+          </span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          Le jeton d'authentification principal <code class="text-slate-800 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded font-label-code-sm">_session_id</code> est configuré avec <code class="text-slate-800 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded font-label-code-sm">SameSite=Lax</code>. Envisagez le mode <code class="text-slate-800 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded font-label-code-sm">Strict</code> si les requêtes transverses ne requièrent pas de session pré-authentifiée.
+        </p>
+<div class="bg-slate-50 border border-slate-200 rounded-lg p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs font-label-code-sm text-label-code-sm">
+<span class="text-slate-500">En-tête observé :</span>
+<code class="text-amber-700 bg-white border border-amber-200 px-2 py-0.5 rounded truncate font-medium">Set-Cookie: _session_id=...; Path=/; Secure; HttpOnly; SameSite=Lax</code>
+</div>
+</article>
+</div>
+<!-- Security Officer & Platform Telemetry Footer Box -->
+<div class="bg-white border border-slate-200 rounded-xl p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-space-md">
+<img alt="Lead Security Architect" class="w-12 h-12 rounded-full object-cover border-2 border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-4qwm60Rkld-euQWFO_YPvvm14irVg-qe4nVRymUF97fpsiUloACQbmnWe6orkRYV0Vo7m9XdIjAOvJBf82zonvze86PmMsGxoNGLzArQqQPEwgF3gwlPHzeVUYkp6RgR9RDfkHfPQH5LstXYhMuB1z61WfUcgpTzjVAwkfAWwekP-dSCOHGxKdBvoBmqi_jH33cLEM5nSO7w9Gkv8npclME3Oe_O114gGr1QNm_CEdWfsH9rkK6k"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Veille permanente sur les menaces</span>
+<span class="font-body-sm text-body-sm text-slate-500">Validé par le moteur SecOps de la plateforme • Inspection passive sans impact</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-slate-600 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+<span class="material-symbols-outlined text-base text-emerald-600">verified</span>
+<span>Charge utile signée cryptographiquement : 0x93b7...d14e</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive UI Controls (Filtering, Search, Copy Actions) -->
+<script>
+  (function() {
+    // 1. Filter Tabs Logic
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const findingCards = document.querySelectorAll('.finding-card');
+    const searchInput = document.getElementById('issue-search');
+
+    function applyFilters() {
+      const activeTab = document.querySelector('.filter-tab.bg-slate-100');
+      const filterValue = activeTab ? activeTab.getAttribute('data-filter') : 'all';
+      const query = (searchInput.value || '').toLowerCase().trim();
+
+      findingCards.forEach(card => {
+        const severity = card.getAttribute('data-severity');
+        const textContent = card.innerText.toLowerCase();
+
+        const matchesCategory = (filterValue === 'all') || (severity === filterValue);
+        const matchesSearch = !query || textContent.includes(query);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => {
+          t.classList.remove('bg-slate-100', 'text-slate-900', 'font-semibold');
+          t.classList.add('text-slate-600');
+        });
+        tab.classList.add('bg-slate-100', 'text-slate-900', 'font-semibold');
+        tab.classList.remove('text-slate-600');
+        applyFilters();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilters);
+    }
+
+    // 2. Code Snippet Copy Buttons
+    const copyBtns = document.querySelectorAll('.copy-snippet-btn');
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-copy');
+        if (navigator.clipboard && text) {
+          navigator.clipboard.writeText(text).then(() => {
+            const span = btn.querySelector('span:last-child');
+            const originalText = span.textContent;
+            span.textContent = 'Copié !';
+            setTimeout(() => { span.textContent = originalText; }, 2000);
+          });
+        }
+      });
+    });
+
+    // 3. Copy JSON payload button
+    const copyJsonBtn = document.getElementById('copy-json-btn');
+    const copyJsonLabel = document.getElementById('copy-json-label');
+    if (copyJsonBtn) {
+      copyJsonBtn.addEventListener('click', () => {
+        const payload = {
+          target: 'https://yourwebsite.com',
+          score: 78,
+          grade: 'B',
+          timestamp: '2024-10-24T14:32:00Z',
+          metrics: { passed: 14, attention: 3, important: 1 },
+          engine: 'v2.4.0'
+        };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(JSON.stringify(payload, null, 2)).then(() => {
+            copyJsonLabel.textContent = 'JSON copié !';
+            setTimeout(() => { copyJsonLabel.textContent = 'Copier le JSON'; }, 2000);
+          });
+        }
+      });
+    }
+
+    // 4. Rescan Visual Feedback
+    const rescanBtn = document.getElementById('rescan-btn');
+    if (rescanBtn) {
+      rescanBtn.addEventListener('click', () => {
+        const icon = rescanBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          setTimeout(() => { icon.classList.remove('animate-spin'); }, 1400);
+        }
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-[#f8fafc] border-t border-slate-200 py-space-2xl"><div class="w-full max-w-7xl mx-auto px-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl pb-space-xl border-b border-slate-200"><div class="md:col-span-2 flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-blue-600 text-base">verified_user</span><span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Architecture du système Security Health</span></div><p class="font-body-sm text-body-sm text-slate-500 max-w-md">Moteur passif d'analyse et d'orchestration de tests d'intrusion sans impact. Conçu pour les environnements de haute sécurité, l'audit du périmètre d'entreprise et l'évaluation continue de la surface d'exposition.</p><div class="flex flex-wrap items-center gap-space-xs pt-space-xs"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded font-label-code-sm text-label-code-sm text-slate-600 shadow-sm"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> SOC 2 Type II</span><span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded font-label-code-sm text-label-code-sm text-slate-600 shadow-sm"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> ISO/IEC 27001</span><span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200 rounded font-label-code-sm text-label-code-sm text-slate-600 shadow-sm"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> Conforme FedRAMP High</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-slate-900 font-semibold">Plateforme</span><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="scanner" href="#">Analyseur de vulnérabilités</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="reports" href="#">Rapports de conformité</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="api-cli" href="#">Outils API &amp; CLI</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="status" href="#">Statut du système &amp; Journal des incidents</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-slate-900 font-semibold">Légal &amp; Confidentialité</span><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="terms-of-service" href="#">Conditions d'utilisation</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="privacy-policy" href="#">Politique de confidentialité</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="security-disclosure" href="#">Divulgation responsable</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="dpa" href="#">Accord de traitement des données (DPA)</a></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md"><p class="font-body-sm text-body-sm text-slate-500">© 2025 Security Health Technologies, Inc. Tous droits réservés. La télémétrie de scan passif respecte rigoureusement les normes de protocole non intrusives RFC 7230.</p><div class="flex items-center gap-space-md font-label-code-sm text-label-code-sm text-slate-500"><span>Version validée par SHA-256</span><span class="w-1 h-1 rounded-full bg-slate-300"></span><span>Région : us-east-1 (Isolée)</span></div></div></div></footer></body></html>

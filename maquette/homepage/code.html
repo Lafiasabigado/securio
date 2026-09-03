@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "outline-variant": "#e2e8f0", "outline": "#94a3b8", "on-background": "#0f172a", "primary-container": "#2563eb", "primary": "#1d4ed8", "surface-variant": "#f1f5f9", "inverse-on-surface": "#f8fafc", "on-surface-variant": "#64748b", "surface-container": "#f8fafc", "on-secondary": "#ffffff", "tertiary": "#d97706", "on-tertiary": "#ffffff", "background": "#f8fafc", "surface-container-low": "#ffffff", "on-surface": "#0f172a", "surface": "#ffffff", "secondary": "#16a34a", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff", "on-primary-container": "#ffffff", "surface-container-high": "#f1f5f9", "error": "#dc2626" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.375rem", "xl": "0.5rem", "2xl": "0.75rem", "full": "9999px" }, "spacing": { "space-3xs": "0.125rem", "space-2xl": "3rem", "space-xl": "2rem", "gutter": "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", "margin-mobile": "1rem", "space-3xl": "4rem", "margin-desktop": "2rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "space-2xs": "0.25rem" }, "fontFamily": { "display-hero-mobile": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "label-code-lg": ["JetBrains Mono"], "headline-lg": ["Inter"], "metric-stat": ["JetBrains Mono"], "label-code-sm": ["JetBrains Mono"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"], "display-hero": ["Inter"] }, "fontSize": { "display-hero-mobile": ["2rem", { "lineHeight": "1.2", "letterSpacing": "-0.025em", "fontWeight": "600" }], "body-sm": ["0.75rem", { "lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400" }], "body-md": ["0.875rem", { "lineHeight": "1.55", "letterSpacing": "0em", "fontWeight": "400" }], "label-code-lg": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-lg": ["1.75rem", { "lineHeight": "1.25", "letterSpacing": "-0.025em", "fontWeight": "600" }], "metric-stat": ["1.75rem", { "lineHeight": "1", "letterSpacing": "-0.03em", "fontWeight": "600" }], "label-code-sm": ["0.75rem", { "lineHeight": "1.35", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-lg-mobile": ["1.375rem", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-sm": ["1rem", { "lineHeight": "1.45", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["1rem", { "lineHeight": "1.6", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-md": ["1.25rem", { "lineHeight": "1.4", "letterSpacing": "-0.015em", "fontWeight": "500" }], "display-hero": ["3rem", { "lineHeight": "1.15", "letterSpacing": "-0.035em", "fontWeight": "600" }] } } } };</script></head><body class="bg-slate-50 font-body-md text-slate-900 antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200"><div class="h-16 w-full px-space-xl flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" href="#"><img alt="Security Health Shield Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UyL8wV1IoHYFWmCuk65rVdibDx-qYgV0RD6QhInYyWTK3yNdcuFAAuILTr18MhWRtBgXodAuX_BMTQoHdPkaXowmBAag1eykhpvTaP8hskqXPtvZ045A8EkqX0FYu02pzuVLwKnuJdkBdfhNo3RQQv9johLOqgypTwOnoCMDktOEsb-6RrgB7Ajl0EMuQFnmSuf9owqUQMqAVq5L27p9KzRqOKxvLKIZIrqQB3H16znIUAywcWNREB9s0"/><span class="font-headline-sm text-headline-sm text-slate-900 tracking-tight font-semibold">Security Health</span></a><nav class="hidden lg:flex items-center gap-space-md"><a aria-current="page" class="transition-colors text-blue-700 font-semibold bg-blue-50 border border-blue-100 px-space-sm py-space-2xs rounded-lg" data-path="scanner" href="#">Analyseur</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="reports" href="#">Rapports</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="api-cli" href="#">API &amp; CLI</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="documentation" href="#">Documentation</a><a class="text-slate-600 hover:text-slate-900 font-body-md text-body-md transition-colors" data-path="status" href="#">GitHub / Statut</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-2xs px-space-xs py-space-3xs bg-emerald-50 border border-emerald-200 rounded-lg"><span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span><span class="font-label-code-sm text-label-code-sm text-emerald-800 font-semibold tracking-tight">Moteur v2.4.0 Actif</span></div><button class="hidden md:flex items-center gap-space-sm px-space-sm py-space-2xs bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-slate-600 hover:text-slate-900 transition-colors" type="button"><span class="material-symbols-outlined text-sm">search</span><span class="font-body-sm text-body-sm">Rechercher dans la télémétrie...</span><kbd class="font-label-code-sm text-label-code-sm px-space-3xs bg-white border border-slate-200 rounded text-slate-500 shadow-2xs">⌘K</kbd></button><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-2xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-4qwm60Rkld-euQWFO_YPvvm14irVg-qe4nVRymUF97fpsiUloACQbmnWe6orkRYV0Vo7m9XdIjAOvJBf82zonvze86PmMsGxoNGLzArQqQPEwgF3gwlPHzeVUYkp6RgR9RDfkHfPQH5LstXYhMuB1z61WfUcgpTzjVAwkfAWwekP-dSCOHGxKdBvoBmqi_jH33cLEM5nSO7w9Gkv8npclME3Oe_O114gGr1QNm_CEdWfsH9rkK6k"/></div></div></div></header><main class="w-full pt-16 bg-slate-50 min-h-[calc(100vh-16rem)]"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-50 border-b border-slate-200/80">
+<div class="absolute inset-0 pointer-events-none opacity-40">
+<div class="absolute top-10 left-1/2 -translate-x-1/2 w-[750px] h-[300px] bg-gradient-to-r from-blue-100 via-indigo-50 to-blue-50 blur-[100px] rounded-full"></div>
+</div>
+<div class="relative max-w-7xl mx-auto px-space-md lg:px-space-xl pt-space-2xl pb-space-3xl flex flex-col items-center text-center">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-3xs rounded-full bg-blue-50/80 border border-blue-200/70 shadow-2xs mb-space-lg">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></span>
+<span class="font-label-code-sm text-label-code-sm text-blue-700 tracking-wider uppercase font-semibold">AUDIT DE CONFIGURATION PUBLIQUE • MOTEUR PASSIF V2.4</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-slate-900 max-w-4xl tracking-tight leading-none mb-space-md">
+        Identifiez les failles exposées.<br/>
+<span class="text-blue-600">Protégez l'essentiel.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-slate-600 max-w-2xl mb-space-2xl">
+        Analysez votre site web pour détecter les faiblesses de configuration et obtenez des recommandations claires et concrètes.
+      </p>
+<div class="w-full max-w-3xl mb-space-lg">
+<form class="w-full bg-white p-2 rounded-2xl shadow-lg border border-slate-200/90 flex flex-col sm:flex-row items-center gap-space-xs" onsubmit="event.preventDefault(); document.getElementById('audit-preview-panel').scrollIntoView({behavior: 'smooth'});">
+<div class="relative flex-1 flex items-center w-full px-space-sm py-space-xs bg-slate-50/80 border border-slate-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+<span class="material-symbols-outlined text-blue-600 text-xl mr-space-xs select-none">lock</span>
+<span class="font-label-code-lg text-label-code-lg text-slate-400 select-none mr-space-3xs">url:</span>
+<input aria-label="Target domain URL" class="w-full bg-transparent font-label-code-lg text-label-code-lg text-slate-900 focus:outline-none placeholder:text-slate-400" id="target-url-input" placeholder="https://votresite.fr" type="text" value="https://acme-cloud.io"/>
+<span class="hidden md:inline-flex items-center px-space-2xs py-space-3xs bg-slate-200/70 rounded-md text-slate-600 font-label-code-sm text-label-code-sm select-none">
+              Entrée ↵
+            </span>
+</div>
+<button class="w-full sm:w-auto px-space-xl py-space-sm bg-blue-600 hover:bg-blue-700 text-white font-headline-sm text-headline-sm rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-space-xs shrink-0 cursor-pointer font-semibold" type="submit">
+<span>Analyser le site</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</form>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-y-space-xs gap-x-space-md text-slate-600 font-body-sm text-body-sm">
+<div class="flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-emerald-600 text-sm">verified</span>
+<span>Analyse passive</span>
+</div>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<div class="flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-emerald-600 text-sm">shield_with_heart</span>
+<span>Aucune exploitation</span>
+</div>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<div class="flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-emerald-600 text-sm">bolt</span>
+<span>Rapport d'audit instantané</span>
+</div>
+</div>
+</div>
+</div>
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-xl pt-space-2xl pb-space-3xl" id="audit-preview-panel">
+<div class="bg-white rounded-2xl p-space-lg shadow-sm border border-slate-200 relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-lg bg-slate-50/70 p-space-md rounded-xl border border-slate-200/80 mb-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+<span class="material-symbols-outlined text-xl">language</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-slate-900 font-semibold truncate">acme-cloud.io</span>
+<span class="px-space-2xs py-space-3xs rounded-md bg-slate-200/80 font-label-code-sm text-label-code-sm text-slate-700 font-medium">Production</span>
+<span class="px-space-2xs py-space-3xs rounded-md bg-emerald-50 border border-emerald-200 font-label-code-sm text-label-code-sm text-emerald-700 flex items-center gap-space-3xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 104.21.55.201
+              </span>
+</div>
+<p class="font-label-code-sm text-label-code-sm text-slate-500 mt-space-3xs">
+              Audit exécuté le <span class="text-slate-800 font-medium">2025-05-18 14:02:11 UTC</span> • Engine v2.4-stable
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-sm py-space-2xs bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-label-code-sm text-label-code-sm rounded-lg flex items-center gap-space-xs transition-colors shadow-2xs font-medium" type="button">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Télémétrie JSON</span>
+</button>
+<button class="px-space-sm py-space-2xs bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-label-code-sm text-label-code-sm rounded-lg flex items-center gap-space-xs transition-colors shadow-2xs font-medium" type="button">
+<span class="material-symbols-outlined text-sm">share</span>
+<span>Partager l'audit</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg">
+<div class="lg:col-span-4 bg-white rounded-xl p-space-lg flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-slate-500 font-semibold">SCORE DE SANTÉ SÉCURITÉ</span>
+<span class="px-space-xs py-space-3xs bg-amber-50 text-amber-700 border border-amber-200 font-label-code-sm text-label-code-sm font-semibold rounded-md">Grade B+</span>
+</div>
+<div class="my-space-lg flex items-center justify-center gap-space-lg">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 120 120">
+<circle class="text-slate-100" cx="60" cy="60" fill="transparent" r="50" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-amber-500 transition-all duration-1000 ease-out" cx="60" cy="60" fill="transparent" r="50" stroke="currentColor" stroke-dasharray="314.159" stroke-dashoffset="69.115" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-metric-stat text-metric-stat text-slate-900 font-bold">78</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-500 font-medium">/ 100</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Risque Modéré</span>
+<p class="font-body-sm text-body-sm text-slate-600">Sécurité périmétrique opérationnelle, mais 1 configuration critique d'en-tête est manquante.</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-space-2xs pt-space-sm bg-slate-50 border border-slate-200/80 p-space-xs rounded-lg text-center">
+<div class="p-space-2xs">
+<span class="font-metric-stat text-metric-stat text-red-600 block font-bold">1</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-600 font-medium">Critique</span>
+</div>
+<div class="p-space-2xs">
+<span class="font-metric-stat text-metric-stat text-amber-600 block font-bold">2</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-600 font-medium">Avertissements</span>
+</div>
+<div class="p-space-2xs">
+<span class="font-metric-stat text-metric-stat text-emerald-600 block font-bold">14</span>
+<span class="font-label-code-sm text-label-code-sm text-slate-600 font-medium">Conformes</span>
+</div>
+</div>
+</div>
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm">
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">HTTPS</span>
+<span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">TLS 1.3, Valid HSTS with Preload flag</p>
+<div class="mt-space-sm pt-space-xs bg-emerald-50 border border-emerald-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-emerald-700 font-semibold">
+                Conforme
+              </div>
+</div>
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">En-têtes de sécurité</span>
+<span class="material-symbols-outlined text-amber-600 text-lg">warning</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">Missing Permissions-Policy and COOP</p>
+<div class="mt-space-sm pt-space-xs bg-amber-50 border border-amber-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-amber-700 font-semibold">
+                Attention requise
+              </div>
+</div>
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Cookies</span>
+<span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">Secure, HttpOnly, SameSite=Strict configured</p>
+<div class="mt-space-sm pt-space-xs bg-emerald-50 border border-emerald-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-emerald-700 font-semibold">
+                Conforme
+              </div>
+</div>
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Configuration</span>
+<span class="material-symbols-outlined text-red-600 text-lg">error</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">Missing Content-Security-Policy (CSP) directive</p>
+<div class="mt-space-sm pt-space-xs bg-red-50 border border-red-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-red-700 font-semibold">
+                Anomalie importante
+              </div>
+</div>
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Contenu mixte</span>
+<span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">Zero non-encrypted passive assets found</p>
+<div class="mt-space-sm pt-space-xs bg-emerald-50 border border-emerald-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-emerald-700 font-semibold">
+                Conforme
+              </div>
+</div>
+<div class="bg-white p-space-md rounded-xl flex flex-col justify-between border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Formulaires</span>
+<span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600">Cross-Origin POST endpoints enforce strict CSRF tokens</p>
+<div class="mt-space-sm pt-space-xs bg-emerald-50 border border-emerald-200 px-space-xs py-space-3xs rounded-md text-center font-label-code-sm text-label-code-sm text-emerald-700 font-semibold">
+                Conforme
+              </div>
+</div>
+</div>
+<div class="bg-white rounded-xl p-space-md border border-slate-200 shadow-2xs">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-red-600"></span>
+<span class="font-label-code-lg text-label-code-lg text-slate-900 font-semibold">Constat principal : Content-Security-Policy (CSP) manquant</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-red-700 font-semibold bg-red-50 border border-red-200 px-2 py-0.5 rounded">CWE-693</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 mb-space-sm">
+              La réponse HTTP ne définit pas d'en-tête Content-Security-Policy. Cela expose votre application aux attaques par injection XSS et au détournement de cadre (clickjacking).
+            </p>
+<div class="bg-slate-50 border border-slate-200 p-space-sm rounded-lg font-label-code-sm text-label-code-sm text-blue-700 flex items-center justify-between">
+<code class="text-slate-800 font-mono">Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-rAnd0m'; object-src 'none';</code>
+<button class="text-slate-600 hover:text-slate-900 bg-white border border-slate-200 hover:bg-slate-100 px-2.5 py-1 rounded shadow-2xs flex items-center gap-space-3xs font-medium transition-colors" onclick="navigator.clipboard.writeText(`Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-rAnd0m'; object-src 'none';`); this.innerHTML = '&lt;span class=\'material-symbols-outlined text-xs text-emerald-600\'&gt;check&lt;/span&gt; Copié !';" type="button">
+<span class="material-symbols-outlined text-xs">content_copy</span> Copier
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-xl pb-space-3xl">
+<div class="mb-space-xl flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-blue-600 font-semibold block mb-space-2xs">ARCHITECTURE DU SYSTÈME</span>
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-semibold">Audité sans risque. Conçu pour les ingénieurs en production.</h2>
+</div>
+<p class="font-body-md text-body-md text-slate-600 max-w-md">
+        Contrairement aux suites d'intrusion invasives, Security Health évalue la conformité RFC et les en-têtes de sécurité via des requêtes HTTP strictement non-destructives.
+      </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-2xl">
+<div class="bg-white p-space-lg rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mb-space-md">
+<span class="material-symbols-outlined text-xl">radar</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mb-space-xs">Observabilité publique non-intrusive</h3>
+<p class="font-body-md text-body-md text-slate-600 mb-space-md">
+            Inspecte les résolutions DNS, handshakes TLS, paramètres HTTP/2 et HTTP/3 sans charge utile intrusive ni risque d'exploitation. Sécurisé pour la production à grande échelle.
+          </p>
+</div>
+<div class="pt-space-md bg-slate-50 border border-slate-200 p-space-sm rounded-lg font-label-code-sm text-label-code-sm text-slate-700 flex items-center gap-space-xs font-medium">
+<span class="material-symbols-outlined text-sm text-emerald-600">check</span> Aucun déclenchement de WAF
+        </div>
+</div>
+<div class="bg-white p-space-lg rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 mb-space-md">
+<span class="material-symbols-outlined text-xl">code_blocks</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mb-space-xs">Remédiation prête pour les développeurs</h3>
+<p class="font-body-md text-body-md text-slate-600 mb-space-md">
+            Extraits prêts à l'emploi pour NGINX, Cloudflare Workers, Vercel et Apache pour corriger les en-têtes en quelques minutes, avec validation syntaxique.
+          </p>
+</div>
+<div class="pt-space-md bg-slate-50 border border-slate-200 p-space-sm rounded-lg font-label-code-sm text-label-code-sm text-slate-700 flex items-center gap-space-xs font-medium">
+<span class="material-symbols-outlined text-sm text-blue-600">terminal</span> Préréglages de configuration instantanés
+        </div>
+</div>
+<div class="bg-white p-space-lg rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 mb-space-md">
+<span class="material-symbols-outlined text-xl">sync_saved_locally</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold mb-space-xs">Intégration CI/CD &amp; Surveillance continue</h3>
+<p class="font-body-md text-body-md text-slate-600 mb-space-md">
+            Tests de non-régression automatisés par CLI et GitHub Actions pour prévenir toute dérive de configuration. Bloquez les déploiements non conformes.
+          </p>
+</div>
+<div class="pt-space-md bg-slate-50 border border-slate-200 p-space-sm rounded-lg font-label-code-sm text-label-code-sm text-slate-700 flex items-center gap-space-xs font-medium">
+<span class="material-symbols-outlined text-sm text-amber-600">schema</span> Blocage automatisé sur règles critiques
+        </div>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-space-lg shadow-sm border border-slate-200">
+<div class="flex items-center justify-between pb-space-sm mb-space-md bg-slate-100/70 border border-slate-200/80 p-space-sm rounded-xl">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
+<span class="font-label-code-sm text-label-code-sm text-slate-600 ml-space-xs font-medium">Terminal — npx security-health scan</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-code-sm text-label-code-sm text-slate-500 font-medium">
+<span class="material-symbols-outlined text-sm text-emerald-600">circle</span> bash (x86_64)
+        </div>
+</div>
+<div class="font-label-code-sm text-label-code-sm text-slate-800 leading-relaxed space-y-space-2xs overflow-x-auto bg-slate-50 p-space-md rounded-xl border border-slate-200 font-mono">
+<div class="flex items-center gap-space-xs">
+<span class="text-emerald-600 font-bold">$</span>
+<span class="text-slate-900 font-semibold">npx security-health scan https://acme-cloud.io --json --strict</span>
+</div>
+<div class="text-slate-500">Initializing passive network telemetry pipeline for 104.21.55.201...</div>
+<div class="text-blue-700">[INFO] TLS Handshake: TLS 1.3 (ChaCha20-Poly1305) • Certificate valid until 2025-11-20</div>
+<div class="text-blue-700">[INFO] ALPN Protocols negotiated: h2, http/1.1</div>
+<div class="text-emerald-700 font-medium">[PASS] Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</div>
+<div class="text-emerald-700 font-medium">[PASS] X-Content-Type-Options: nosniff</div>
+<div class="text-emerald-700 font-medium">[PASS] X-Frame-Options: SAMEORIGIN</div>
+<div class="text-amber-700 font-medium">[WARN] Referrer-Policy: not set (defaulting to strict-origin-when-cross-origin)</div>
+<div class="text-red-600 font-semibold">[FAIL] Content-Security-Policy: missing header (High severity: CWE-693)</div>
+<div class="text-slate-400 pt-space-xs">------------------------------------------------------------------</div>
+<div class="text-slate-700 font-medium">Audit terminé en <span class="text-emerald-700 font-bold">412ms</span>. Code de sortie : <span class="text-red-600 font-bold">1</span> (Seuil : déclenchement du mode --strict).</div>
+</div>
+</div>
+</section>
+<section class="w-full bg-white border-y border-slate-200 py-space-3xl relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-space-md lg:px-space-xl text-center flex flex-col items-center">
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-semibold mb-space-xs">
+        Automatisez l'évaluation de votre posture de sécurité en quelques secondes.
+      </h2>
+<p class="font-body-md text-body-md text-slate-600 max-w-xl mb-space-lg">
+        Auditez vos domaines via la console ou intégrez des vérifications de non-régression à chaque pull request.
+      </p>
+<div class="flex flex-wrap items-center justify-center gap-space-md">
+<button class="px-space-xl py-space-sm bg-blue-600 text-white font-headline-sm text-headline-sm rounded-xl shadow-md hover:bg-blue-700 transition-colors flex items-center gap-space-xs font-semibold" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('target-url-input').focus();" type="button">
+<span class="material-symbols-outlined text-base">search_check</span>
+<span>Lancer un audit instantané</span>
+</button>
+<a class="px-space-xl py-space-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-headline-sm text-headline-sm rounded-xl shadow-sm transition-colors flex items-center gap-space-xs font-semibold" data-path="api-cli" href="#">
+<span class="material-symbols-outlined text-base">terminal</span>
+<span>Consulter la documentation CLI</span>
+</a>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-slate-50 border-t border-slate-200 py-space-2xl"><div class="w-full max-w-7xl mx-auto px-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl pb-space-xl border-b border-slate-200"><div class="md:col-span-2 flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-blue-600 text-base">verified_user</span><span class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Architecture système de Security Health</span></div><p class="font-body-sm text-body-sm text-slate-600 max-w-md">Moteur d'orchestration de diagnostic passif à impact nul. Conçu pour les exigences d'intégrité élevées, l'audit périmétrique d'entreprise et la surveillance continue.</p><div class="flex flex-wrap items-center gap-space-xs pt-space-xs"><span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs bg-white border border-slate-200 rounded-md font-label-code-sm text-label-code-sm text-slate-700 shadow-2xs font-medium"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> SOC 2 Type II</span><span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs bg-white border border-slate-200 rounded-md font-label-code-sm text-label-code-sm text-slate-700 shadow-2xs font-medium"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> ISO/IEC 27001</span><span class="inline-flex items-center gap-space-3xs px-space-xs py-space-3xs bg-white border border-slate-200 rounded-md font-label-code-sm text-label-code-sm text-slate-700 shadow-2xs font-medium"><span class="material-symbols-outlined text-xs text-emerald-600">check_circle</span> FedRAMP High Ready</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-slate-900 font-semibold">PLATEFORME</span><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="scanner" href="#">Scanner de vulnérabilités</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="reports" href="#">Rapports de conformité</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="api-cli" href="#">Outils API &amp; CLI</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="status" href="#">Statut du système &amp; Incidents</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-code-sm text-label-code-sm uppercase tracking-wider text-slate-900 font-semibold">JURIDIQUE &amp; CONFIDENTIALITÉ</span><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="terms-of-service" href="#">Conditions d'utilisation</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="privacy-policy" href="#">Politique de confidentialité</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="security-disclosure" href="#">Divulgation responsable</a><a class="font-body-sm text-body-sm text-slate-600 hover:text-slate-900 transition-colors" data-path="dpa" href="#">Accord sur le traitement des données (DPA)</a></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md"><p class="font-body-sm text-body-sm text-slate-500">© 2025 Security Health Technologies, Inc. Tous droits réservés. Télémétrie passive conforme aux normes non-intrusives du protocole RFC 7230.</p><div class="flex items-center gap-space-md font-label-code-sm text-label-code-sm text-slate-500"><span>Build vérifié SHA-256</span><span class="w-1 h-1 rounded-full bg-slate-300"></span><span>Région : us-east-1 (Isolée)</span></div></div></div></footer></body></html>
