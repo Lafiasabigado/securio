@@ -1,26 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --border-default: #e2e8f0;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material Symbols configuration */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+}
+
+/* Typographic & Telemetry utility classes strictly faithful to DESIGN.md */
+.font-display-hero {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+
+.font-headline-xl {
+  font-family: "Inter", sans-serif;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.font-headline-lg {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.font-headline-md {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.font-headline-sm {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.005em;
+  font-weight: 600;
+}
+
+.font-body-lg {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+}
+
+.font-label-code-lg {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.font-label-code-sm {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.font-metric-stat {
+  font-family: "JetBrains Mono", monospace;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* Custom Spacing Helpers matching maquette class names */
+.px-space-xl { padding-left: 2rem; padding-right: 2rem; }
+.py-space-xl { padding-top: 2rem; padding-bottom: 2rem; }
+.p-space-xl { padding: 2rem; }
+
+.px-space-lg { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-space-lg { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.p-space-lg { padding: 1.5rem; }
+
+.px-space-md { padding-left: 1rem; padding-right: 1rem; }
+.py-space-md { padding-top: 1rem; padding-bottom: 1rem; }
+.p-space-md { padding: 1rem; }
+
+.px-space-sm { padding-left: 0.75rem; padding-right: 0.75rem; }
+.py-space-sm { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.p-space-sm { padding: 0.75rem; }
+
+.px-space-xs { padding-left: 0.5rem; padding-right: 0.5rem; }
+.py-space-xs { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.p-space-xs { padding: 0.5rem; }
+
+.px-space-2xs { padding-left: 0.25rem; padding-right: 0.25rem; }
+.py-space-2xs { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+
+.px-space-3xs { padding-left: 0.125rem; padding-right: 0.125rem; }
+.py-space-3xs { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+
+.gap-space-xl { gap: 2rem; }
+.gap-space-lg { gap: 1.5rem; }
+.gap-space-md { gap: 1rem; }
+.gap-space-sm { gap: 0.75rem; }
+.gap-space-xs { gap: 0.5rem; }
+.gap-space-2xs { gap: 0.25rem; }
+.gap-space-3xs { gap: 0.125rem; }
+
+.pt-space-2xl { padding-top: 3rem; }
+.pb-space-3xl { padding-bottom: 4rem; }
+.py-space-2xl { padding-top: 3rem; padding-bottom: 3rem; }
+.py-space-3xl { padding-top: 4rem; padding-bottom: 4rem; }
+.mb-space-md { margin-bottom: 1rem; }
+.mb-space-lg { margin-bottom: 1.5rem; }
+.mb-space-xl { margin-bottom: 2rem; }
+.mb-space-2xl { margin-bottom: 3rem; }
+
+/* Custom keyframes */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media print {
+  header, footer, #quick-action-bar, .no-print {
+    display: none !important;
+  }
+  main {
+    padding-top: 0 !important;
+  }
 }
