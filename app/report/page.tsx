@@ -17,7 +17,6 @@ function ReportContent() {
   const [scan, setScan] = useState<ScanResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [copiedJson, setCopiedJson] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function ReportContent() {
       if (cached) {
         try {
           const parsed = JSON.parse(cached) as ScanResult;
-          // If scanId was supplied, check if match or fall back
           if (!scanId || parsed.id === scanId) {
             setScan(parsed);
             setLoading(false);
@@ -49,7 +47,7 @@ function ReportContent() {
     // 2. If directUrl provided or we don't have cached data, trigger instant scan via API
     const target = directUrl || (scanId ? `https://${scanId.replace("scn_", "")}` : null);
     if (!target) {
-      setError("Aucun rapport d'analyse disponible. Veuillez lancer une analyse depuis la page d'accueil.");
+      setError("Aucun rapport d'analyse disponible pour l'instant. Lancez simplement un test depuis la page d'accueil.");
       setLoading(false);
       return;
     }
@@ -77,13 +75,6 @@ function ReportContent() {
       });
   }, [scanId, directUrl]);
 
-  const handleCopyJson = () => {
-    if (!scan) return;
-    navigator.clipboard.writeText(JSON.stringify(scan, null, 2));
-    setCopiedJson(true);
-    setTimeout(() => setCopiedJson(false), 2000);
-  };
-
   const handleShare = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
@@ -99,34 +90,40 @@ function ReportContent() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-space-md py-space-3xl text-center flex flex-col items-center justify-center gap-space-md">
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center flex flex-col items-center justify-center gap-4">
         <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-          <span className="material-symbols-outlined text-2xl animate-spin">refresh</span>
+          <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
         </div>
-        <div className="font-headline-sm text-slate-900 font-semibold">Chargement du rapport d&apos;analyse...</div>
-        <p className="font-body-sm text-slate-500">Récupération des métriques et des en-têtes de sécurité.</p>
+        <div className="text-lg font-bold text-slate-900">Préparation de votre rapport de santé...</div>
+        <p className="text-sm text-slate-500 max-w-sm">
+          Nous analysons les protections actives sur votre site web. Cela ne prend que quelques secondes.
+        </p>
       </div>
     );
   }
 
   if (error || !scan) {
     return (
-      <div className="max-w-3xl mx-auto px-space-md py-space-3xl flex flex-col items-center text-center">
-        <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-space-md">
-          <span className="material-symbols-outlined text-3xl">info</span>
+      <div className="max-w-xl mx-auto px-4 py-16 flex flex-col items-center text-center">
+        <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-4">
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
         </div>
-        <h1 className="font-headline-lg text-slate-900 font-semibold mb-space-xs">
-          Rapport introuvable
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">
+          Aucun rapport actif trouvé
         </h1>
-        <p className="font-body-md text-slate-600 max-w-lg mb-space-lg leading-relaxed">
-          {error || "Aucun rapport n'a été trouvé en mémoire pour cette session. Les résultats ne sont pas persistés dans une base de données en V1."}
+        <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+          {error || "Vous n'avez pas encore lancé de test durant cette session. Entrez simplement l'adresse de votre site pour générer votre bilan de santé complet."}
         </p>
         <Link
           href="/"
-          className="px-space-xl py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-headline-sm font-semibold text-sm transition-all shadow-sm active:scale-95 flex items-center gap-2"
+          className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-all shadow-xs active:scale-95 text-center"
         >
-          <span className="material-symbols-outlined text-base">search</span>
-          <span>Lancer une nouvelle analyse</span>
+          Lancer une analyse gratuite
         </Link>
       </div>
     );
@@ -140,111 +137,88 @@ function ReportContent() {
   return (
     <div className="flex flex-col w-full">
       {/* Target Audit Header Strip */}
-      <section className="w-full bg-white border-b border-slate-200 px-space-md sm:px-space-xl py-space-lg shadow-sm">
-        <div className="max-w-7xl mx-auto flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
-          <div className="flex flex-col gap-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-space-xs">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-code-sm font-semibold text-xs">
+      <section className="w-full bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-6 shadow-xs">
+        <div className="max-w-7xl mx-auto flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                CIBLE ACTIVE
+                Site analysé avec succès
               </span>
-              <span className="font-label-code-sm text-slate-500 text-xs">ID : {scan.id}</span>
+              <span className="text-xs text-slate-400 font-mono">Réf #{scan.id.slice(-6)}</span>
             </div>
 
-            <div className="flex items-baseline gap-space-sm flex-wrap">
-              <h1 className="font-headline-lg text-slate-900 font-semibold tracking-tight truncate max-w-2xl">
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight truncate max-w-2xl">
                 {scan.url}
               </h1>
               <a
                 href={scan.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 font-medium text-xs font-body-sm inline-flex items-center gap-0.5"
+                className="text-blue-600 hover:text-blue-800 font-medium text-xs inline-flex items-center gap-1"
               >
-                <span>consulter le site</span>
-                <span className="material-symbols-outlined text-xs">north_east</span>
+                <span>ouvrir le site</span>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </a>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-space-md gap-y-1 text-slate-500 font-label-code-sm text-xs pt-1">
-              <span className="inline-flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm text-slate-400">schedule</span>
-                {formattedDate}
-              </span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+              <span>Analysé le {formattedDate}</span>
               <span>•</span>
-              <span className="inline-flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm text-slate-400">timer</span>
-                Latence : {scan.telemetry.latencyMs}ms
-              </span>
+              <span>Temps de diagnostic : {scan.telemetry.latencyMs}ms</span>
               <span>•</span>
-              <span className="inline-flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm text-slate-400">memory</span>
-                Moteur : v2.4.0 ({scan.telemetry.tlsVersion})
-              </span>
+              <span>Chiffrement : {scan.telemetry.tlsVersion || "HTTPS"}</span>
             </div>
           </div>
 
           {/* Quick Action Toolset */}
-          <div className="flex flex-wrap items-center gap-2 pt-space-xs xl:pt-0" id="quick-action-bar">
+          <div className="flex flex-wrap items-center gap-2 pt-2 xl:pt-0">
             <button
               onClick={handleRescan}
               type="button"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white rounded-lg font-label-code-sm text-xs hover:bg-blue-700 transition-colors shadow-sm font-semibold active:scale-95"
+              className="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs active:scale-95 cursor-pointer"
             >
-              <span className="material-symbols-outlined text-base">refresh</span>
-              <span>Réanalyser le domaine</span>
+              Relancer l&apos;analyse
             </button>
 
             <button
               onClick={() => window.print()}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-label-code-sm text-xs hover:bg-slate-50 transition-colors shadow-2xs font-medium"
+              className="px-3.5 py-2 bg-white text-slate-700 border border-slate-200 rounded-xl text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
             >
-              <span className="material-symbols-outlined text-base text-blue-600">picture_as_pdf</span>
-              <span>Exporter en PDF</span>
-            </button>
-
-            <button
-              onClick={handleCopyJson}
-              type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-label-code-sm text-xs hover:bg-slate-50 transition-colors shadow-2xs font-medium"
-            >
-              <span className="material-symbols-outlined text-base text-slate-500">
-                {copiedJson ? "check" : "code"}
-              </span>
-              <span>{copiedJson ? "JSON Copié !" : "Copier le JSON"}</span>
+              Imprimer / Enregistrer en PDF
             </button>
 
             <button
               onClick={handleShare}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-label-code-sm text-xs hover:bg-slate-50 transition-colors shadow-2xs font-medium"
+              className="px-3.5 py-2 bg-white text-slate-700 border border-slate-200 rounded-xl text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
             >
-              <span className="material-symbols-outlined text-base text-slate-500">
-                {copiedShare ? "check" : "share"}
-              </span>
-              <span>{copiedShare ? "Lien copié !" : "Partager le rapport"}</span>
+              {copiedShare ? "Lien copié !" : "Partager le rapport"}
             </button>
           </div>
         </div>
       </section>
 
       {/* Main Content Body */}
-      <div className="w-full max-w-7xl mx-auto px-space-md sm:px-space-xl py-space-xl flex flex-col gap-space-xl">
-        {/* Top Score Radar & Telecom context */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+        {/* Top Score Overview */}
         <ScoreOverview scan={scan} />
 
         {/* 6 Category Breakdown Cards */}
         <CategoryGrid categories={scan.categories} />
 
         {/* Detailed Findings List & Filters */}
-        <div className="flex flex-col gap-space-sm pt-space-xs">
-          <div className="flex items-center justify-between">
-            <h2 className="font-headline-sm text-slate-900 font-semibold tracking-tight">
-              Constats détaillés &amp; Recommandations de remédiation
+        <div className="flex flex-col gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+              Points d&apos;attention &amp; solutions recommandées
             </h2>
-            <span className="font-label-code-sm text-slate-500 text-xs">
-              Classés par priorité d&apos;impact
+            <span className="text-xs text-slate-500">
+              Classés par ordre d&apos;urgence
             </span>
           </div>
 
@@ -259,9 +233,8 @@ export default function ReportPage() {
   return (
     <Suspense
       fallback={
-        <div className="max-w-7xl mx-auto px-space-md py-space-3xl text-center">
-          <div className="inline-flex items-center gap-2 text-slate-600 font-headline-sm">
-            <span className="material-symbols-outlined animate-spin text-blue-600">refresh</span>
+        <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+          <div className="inline-flex items-center gap-2 text-slate-600 font-semibold text-sm">
             <span>Chargement du rapport...</span>
           </div>
         </div>

@@ -17,11 +17,10 @@ function ScanExecution() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
-  const [isCancelled, setIsCancelled] = useState(false);
 
   useEffect(() => {
     if (!targetUrl) {
-      setError("Aucune URL cible fournie. Veuillez démarrer un scan depuis la page d'accueil.");
+      setError("Aucune adresse web n'a été fournie. Veuillez démarrer un test depuis la page d'accueil.");
       return;
     }
 
@@ -34,19 +33,19 @@ function ScanExecution() {
 
     // Initial logs
     setLogs([
-      { timestamp: "00:00.012", level: "info", message: `Démarrage de l'analyse passive pour ${targetUrl}...` },
-      { timestamp: "00:00.045", level: "info", message: "Vérification de sécurité SSRF et résolution DNS..." },
+      { timestamp: "00:00.012", level: "info", message: `Connexion au site ${targetUrl}...` },
+      { timestamp: "00:00.045", level: "info", message: "Vérification de l'adresse et des serveurs de noms..." },
     ]);
 
-    // Timed progression through steps to provide telemetry feedback while backend executes
+    // Timed progression through steps
     const timer1 = setTimeout(() => {
       if (!isMounted) return;
       setCurrentStage(2);
       setProgress(35);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "pass", message: "DNS résolu : Enregistrements publics conformes (RFC 1918 sécurisé)" },
-        { timestamp: getTimestamp(), level: "info", message: "Initialisation du handshake TLS 1.3 / SNI..." },
+        { timestamp: getTimestamp(), level: "pass", message: "Le site répond correctement." },
+        { timestamp: getTimestamp(), level: "info", message: "Vérification du certificat de sécurité SSL et du cadenas HTTPS..." },
       ]);
     }, 700);
 
@@ -56,8 +55,8 @@ function ScanExecution() {
       setProgress(58);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "pass", message: "Négociation TLS réussie : Chaîne de confiance et ciphers validés" },
-        { timestamp: getTimestamp(), level: "info", message: "Inspection des en-têtes HTTP de réponse (CSP, HSTS, XFO)..." },
+        { timestamp: getTimestamp(), level: "pass", message: "Cadenas HTTPS validé avec succès." },
+        { timestamp: getTimestamp(), level: "info", message: "Examen des protections contre les attaques de navigateur..." },
       ]);
     }, 1400);
 
@@ -67,7 +66,7 @@ function ScanExecution() {
       setProgress(75);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "info", message: "Analyse des attributs de cookies (Secure, HttpOnly, SameSite)..." },
+        { timestamp: getTimestamp(), level: "info", message: "Analyse des cookies et de la confidentialité des sessions..." },
       ]);
     }, 2100);
 
@@ -77,7 +76,7 @@ function ScanExecution() {
       setProgress(88);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "info", message: "Vérification passive des ressources et contenu mixte..." },
+        { timestamp: getTimestamp(), level: "info", message: "Détection des ressources et images non chiffrées..." },
       ]);
     }, 2700);
 
@@ -98,31 +97,28 @@ function ScanExecution() {
 
         const data: ScanResult = json.data;
 
-        // Add final logs
         setLogs((prev) => [
           ...prev,
-          { timestamp: getTimestamp(), level: "pass", message: `Formulaires et endpoints validés.` },
-          { timestamp: getTimestamp(), level: "pass", message: `Calcul du score : ${data.score}/100 (Grade ${data.grade}).` },
-          { timestamp: getTimestamp(), level: "info", message: "Génération du rapport d'audit..." },
+          { timestamp: getTimestamp(), level: "pass", message: `Formulaires et endpoints vérifiés.` },
+          { timestamp: getTimestamp(), level: "pass", message: `Calcul du score de santé : ${data.score}/100 (Note ${data.grade}).` },
+          { timestamp: getTimestamp(), level: "info", message: "Génération de votre rapport détaillé..." },
         ]);
 
         setCurrentStage(6);
         setProgress(100);
 
-        // Store result in sessionStorage for instant retrieval on /report
         sessionStorage.setItem("latest_scan", JSON.stringify(data));
         sessionStorage.setItem(`scan_${data.id}`, JSON.stringify(data));
 
-        // Short transition to report page
         setTimeout(() => {
           if (isMounted) {
             router.push(`/report?id=${data.id}`);
           }
-        }, 800);
+        }, 700);
       })
       .catch((err: unknown) => {
         if (!isMounted) return;
-        const msg = err instanceof Error ? err.message : "Erreur réseau";
+        const msg = err instanceof Error ? err.message : "Erreur de connexion";
         setError(`Échec de l'analyse : ${msg}`);
       });
 
@@ -144,38 +140,39 @@ function ScanExecution() {
   };
 
   const handleCancel = () => {
-    setIsCancelled(true);
     router.push("/");
   };
 
   if (error) {
     return (
-      <div className="max-w-3xl mx-auto px-space-md py-space-3xl flex flex-col items-center text-center">
-        <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-space-md">
-          <span className="material-symbols-outlined text-3xl">error</span>
+      <div className="max-w-xl mx-auto px-4 py-16 flex flex-col items-center text-center">
+        <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-4">
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
-        <h1 className="font-headline-lg text-slate-900 font-semibold mb-space-xs">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">
           Analyse impossible
         </h1>
-        <p className="font-body-md text-slate-600 max-w-lg mb-space-lg leading-relaxed">
+        <p className="text-sm text-slate-600 mb-6 leading-relaxed">
           {error}
         </p>
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-space-md max-w-lg text-left text-xs text-slate-600 space-y-1 mb-space-xl font-label-code-sm">
-          <div className="font-semibold text-slate-900">Vérifications recommandées :</div>
-          <div>• Assurez-vous que l&apos;URL commence par http:// ou https://</div>
-          <div>• Les adresses privées (localhost, 127.0.0.1, réseau local) sont strictement bloquées par mesure de sécurité</div>
-          <div>• Vérifiez que le nom de domaine existe et répond aux requêtes publiques</div>
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left text-xs text-slate-600 space-y-2 mb-6 w-full">
+          <div className="font-bold text-slate-900">Conseils :</div>
+          <div>• Vérifiez que l&apos;adresse commence bien par https:// ou http://</div>
+          <div>• Les adresses internes (comme localhost ou 127.0.0.1) sont bloquées pour des raisons de sécurité</div>
+          <div>• Assurez-vous que votre site est bien accessible publiquement sur internet</div>
         </div>
-        <div className="flex gap-space-sm">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
-            className="px-space-lg py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-headline-sm font-semibold text-sm transition-all shadow-sm active:scale-95"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm transition-all shadow-xs active:scale-95"
           >
-            Essayer une autre URL
+            Tester une autre adresse
           </Link>
           <Link
             href="/about"
-            className="px-space-lg py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl font-headline-sm font-semibold text-sm transition-colors"
+            className="px-5 py-2.5 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl font-bold text-sm transition-colors"
           >
             En savoir plus
           </Link>
@@ -185,150 +182,95 @@ function ScanExecution() {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-7xl mx-auto px-space-md lg:px-space-xl py-space-lg">
+    <div className="flex flex-col w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Target Header Card */}
-      <div className="relative w-full rounded-xl bg-white border border-slate-200 p-space-md lg:p-space-lg shadow-sm overflow-hidden">
-        <div className="absolute -right-20 -top-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md">
-          {/* Target Identity */}
-          <div className="flex items-start sm:items-center gap-space-sm">
-            <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-blue-600 text-2xl">language</span>
+      <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-7 shadow-xs mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
             </div>
             <div className="flex flex-col min-w-0">
-              <div className="flex flex-wrap items-center gap-space-xs">
-                <span className="font-headline-md text-slate-900 font-semibold tracking-tight truncate max-w-md">
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight truncate max-w-md">
                   {targetUrl || "https://votresite.fr"}
-                </span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-code-sm font-semibold flex items-center gap-1 text-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  CIBLE EN DIRECT
+                </h1>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                  Analyse en direct
                 </span>
               </div>
-              <div className="flex flex-wrap items-center gap-x-space-md gap-y-1 mt-1 text-slate-500 font-label-code-sm text-xs">
-                <span>À l&apos;instant (Moteur passif #04)</span>
-                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                <span className="text-emerald-600 font-medium">Vérifié RFC 7230</span>
-                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                <span>Zéro charge utile</span>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-slate-500">
+                <span>Sans impact sur votre serveur</span>
+                <span>•</span>
+                <span className="text-emerald-700 font-medium">100% sécurisé</span>
               </div>
             </div>
           </div>
 
-          {/* Quick Action Controls */}
-          <div className="flex items-center gap-space-xs self-start lg:self-center shrink-0">
+          <div className="flex items-center gap-2 self-start lg:self-center shrink-0">
             <button
               onClick={handleCopyLink}
               type="button"
-              className="px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-all flex items-center gap-1.5 font-label-code-sm text-xs font-medium border border-slate-200/80 shadow-2xs active:scale-95"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors text-xs font-semibold cursor-pointer"
             >
-              <span className="material-symbols-outlined text-sm text-slate-500">
-                {copiedLink ? "check" : "share"}
-              </span>
-              <span>{copiedLink ? "Lien copié !" : "Partager le lien"}</span>
+              {copiedLink ? "Lien copié !" : "Partager"}
             </button>
             <button
               onClick={handleCancel}
               type="button"
-              className="px-3 py-1.5 rounded bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-all flex items-center gap-1.5 font-label-code-sm text-xs font-medium shadow-2xs active:scale-95"
+              className="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 transition-colors text-xs font-semibold cursor-pointer"
             >
-              <span className="material-symbols-outlined text-sm">cancel</span>
-              <span>Annuler l&apos;analyse</span>
+              Annuler
             </button>
           </div>
         </div>
 
-        {/* Live Telemetry Status Bar */}
-        <div className="relative z-10 pt-space-md mt-1 border-t border-slate-100">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-            <div className="flex items-center gap-2">
-              <div className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-              </div>
-              <span className="font-headline-sm text-slate-900 font-medium text-sm">
-                Exécution du pipeline de diagnostic ({progress}% effectué)...
-              </span>
-            </div>
-            <div className="font-metric-stat text-blue-600 flex items-baseline gap-1 text-lg font-bold">
-              <span>{progress}</span>
-              <span className="text-xs font-label-code-sm text-slate-400 font-normal">%</span>
-            </div>
+        {/* Progress Bar */}
+        <div className="pt-4">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-xs font-bold text-slate-700">
+              Diagnostic en cours ({progress}% terminé)...
+            </span>
+            <span className="text-sm font-extrabold text-blue-600">{progress}%</span>
           </div>
 
-          {/* Fluid Progress Bar */}
-          <div className="w-full h-2.5 rounded-full bg-slate-100 border border-slate-200 overflow-hidden relative">
+          <div className="w-full h-2.5 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 transition-all duration-500 rounded-full"
+              className="h-full bg-blue-600 transition-all duration-500 rounded-full"
               style={{ width: `${progress}%` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_infinite]"></div>
-            </div>
+            />
           </div>
         </div>
       </div>
 
-      {/* Main Dual-Inspector Work Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-space-lg items-start">
-        {/* Left Panel: Step-by-Step Diagnostic Stepper Checklist (7 cols) */}
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Stepper Checklist (7 cols) */}
         <div className="lg:col-span-7">
           <StepperMatrix currentStage={currentStage} progress={progress} />
         </div>
 
-        {/* Right Panel: Live Telemetry Terminal & Security Spec Context (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col gap-space-md">
-          <TelemetryTerminal logs={logs} speed="2.8 kbit/s" isStreaming={progress < 100} />
+        {/* Terminal & Reassurance (5 cols) */}
+        <div className="lg:col-span-5 flex flex-col gap-5">
+          <TelemetryTerminal logs={logs} speed="En direct" isStreaming={progress < 100} />
 
-          {/* Attack Surface Vector Preview */}
-          <div className="rounded-xl bg-white border border-slate-200 p-space-md shadow-sm flex flex-col gap-space-sm">
-            <div className="flex items-center justify-between">
-              <span className="font-label-code-sm uppercase tracking-wider text-slate-500 font-semibold text-xs">
-                VECTEUR DE SURFACE D&apos;ATTAQUE EN DIRECT
-              </span>
-              <span className="font-label-code-sm text-blue-600 font-mono font-medium px-2 py-0.5 bg-blue-50 border border-blue-100 rounded text-xs">
-                ÉVALUATION PASSIVE
-              </span>
+          {/* Guarantee Card */}
+          <div className="rounded-2xl bg-white border border-slate-200 p-5 shadow-xs flex items-start gap-3.5">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+              <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
             </div>
-            <div className="grid grid-cols-3 gap-space-sm pt-1 text-center">
-              <div className="p-space-xs rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center">
-                <span className="font-metric-stat text-emerald-600 font-bold text-lg">A+</span>
-                <span className="font-body-sm text-slate-500 text-xs mt-1">TLS / Chiffrement</span>
-              </div>
-              <div className="p-space-xs rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center">
-                <span className="font-metric-stat text-amber-600 font-bold text-lg">
-                  {currentStage >= 3 ? "B" : "--"}
-                </span>
-                <span className="font-body-sm text-slate-500 text-xs mt-1">Posture en-têtes</span>
-              </div>
-              <div className="p-space-xs rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center">
-                <span className="font-metric-stat text-slate-400 font-bold text-lg">
-                  {currentStage >= 5 ? "A" : "--"}
-                </span>
-                <span className="font-body-sm text-slate-500 text-xs mt-1">Cookies &amp; CORS</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Zero-Payload Guarantee Card */}
-          <div className="rounded-xl bg-white border border-slate-200 p-space-md shadow-sm flex items-start gap-space-sm">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5">
-              <span className="material-symbols-outlined text-xl">verified_user</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-headline-sm text-slate-900 font-semibold text-sm">
-                Architecture à charge utile nulle
+            <div>
+              <span className="text-sm font-bold text-slate-900 block mb-1">
+                Garantie d&apos;analyse inoffensive
               </span>
-              <p className="font-body-sm text-slate-600 mt-1 leading-relaxed text-xs">
-                L&apos;analyse s&apos;achève généralement en 3 à 6 secondes. Aucun vecteur d&apos;attaque ni charge utile intrusive n&apos;est envoyé vers vos serveurs. La télémétrie repose uniquement sur l&apos;analyse passive des réponses standard RFC 7230.
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Ce test analyse uniquement les réponses publiques que votre site envoie à n&apos;importe quel internaute. Aucun formulaire n&apos;est soumis et aucune donnée privée n&apos;est stockée.
               </p>
-              <div className="flex items-center gap-space-sm mt-2 font-label-code-sm text-slate-500 text-xs">
-                <span className="flex items-center gap-1 text-emerald-700 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Sûr pour la production
-                </span>
-                <span>•</span>
-                <span>Aucune latence induite</span>
-              </div>
             </div>
           </div>
         </div>
@@ -341,10 +283,9 @@ export default function ScanPage() {
   return (
     <Suspense
       fallback={
-        <div className="max-w-7xl mx-auto px-space-md py-space-3xl text-center">
-          <div className="inline-flex items-center gap-2 text-slate-600 font-headline-sm">
-            <span className="material-symbols-outlined animate-spin text-blue-600">refresh</span>
-            <span>Chargement du scanner...</span>
+        <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+          <div className="text-slate-600 font-semibold text-sm">
+            Chargement de l&apos;analyseur...
           </div>
         </div>
       }

@@ -1,202 +1,209 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Méthodologie & Analyse Passive — Security Health",
+  title: "Méthodologie & Sécurité — Security Health",
   description:
-    "Comprendre le fonctionnement du moteur Security Health, les éléments de configuration analysés, le calcul du score et les limites de l'audit passif.",
+    "Comprendre le fonctionnement de Security Health, les vérifications effectuées, le calcul du score et la garantie d'innocuité pour votre site.",
 };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col w-full max-w-5xl mx-auto px-space-md sm:px-space-xl py-space-2xl">
+    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       {/* Top Breadcrumb & Heading */}
-      <div className="mb-space-xl text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-label-code-sm text-xs font-semibold uppercase tracking-wider mb-space-sm">
-          <span className="material-symbols-outlined text-sm">shield</span>
-          Transparence &amp; Éthique
+      <div className="mb-10 text-center flex flex-col items-center">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
+          Transparence &amp; Pédagogie
         </div>
-        <h1 className="font-headline-xl text-slate-900 font-semibold tracking-tight max-w-2xl mb-space-xs">
-          Méthodologie d&apos;analyse passive &amp; Limites de l&apos;outil
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight max-w-2xl mb-3">
+          Comprendre votre diagnostic et notre méthode
         </h1>
-        <p className="font-body-lg text-slate-600 max-w-xl">
-          Découvrez comment Security Health évalue votre configuration publique de façon strictement défensive, conforme et sans impact.
+        <p className="text-base text-slate-600 max-w-xl leading-relaxed">
+          Découvrez simplement comment Security Health évalue votre site web, sans jargon obscur, et pourquoi notre outil est 100% sans danger.
         </p>
       </div>
 
       {/* Grid of Principles */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg mb-space-2xl">
-        <div className="bg-white border border-slate-200 rounded-xl p-space-lg shadow-sm flex flex-col gap-space-xs">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center mb-1">
-            <span className="material-symbols-outlined text-xl">verified_user</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-xs flex flex-col gap-2">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center mb-2">
+            <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
           </div>
-          <h2 className="font-headline-sm text-slate-900 font-semibold">
-            Garantie d&apos;analyse 100% passive
+          <h2 className="text-base font-bold text-slate-900">
+            Garantie 100% sans intrusion
           </h2>
-          <p className="font-body-md text-slate-600 leading-relaxed text-sm">
-            Security Health effectue uniquement des requêtes HTTP standard (identiques à celles d&apos;un internaute ouvrant une page dans son navigateur). Aucune tentative d&apos;intrusion, aucune charge utile malveillante ni fuzzing n&apos;est jamais exécuté.
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Security Health visite votre site exactement comme le ferait un internaute normal avec son navigateur (Safari, Chrome ou Firefox). Aucune tentative de piratage, aucune faille n&apos;est exploitée et votre serveur ne subit aucun ralentissement.
           </p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-space-lg shadow-sm flex flex-col gap-space-xs">
-          <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center mb-1">
-            <span className="material-symbols-outlined text-xl">lock</span>
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-xs flex flex-col gap-2">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center mb-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0110 0v4" />
+            </svg>
           </div>
-          <h2 className="font-headline-sm text-slate-900 font-semibold">
-            Aucun stockage de secrets ni base de données
+          <h2 className="text-base font-bold text-slate-900">
+            Aucune donnée sensible conservée
           </h2>
-          <p className="font-body-md text-slate-600 leading-relaxed text-sm">
-            En version V1, les analyses sont traitées à la volée. Nous ne conservons aucune information sensible. Les valeurs des cookies sont masquées et les résultats sont uniquement temporaires dans votre navigateur.
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Le diagnostic est calculé à la volée. Nous ne stockons aucun mot de passe ni identifiant. Les valeurs des cookies sont masquées et les résultats restent temporaires dans votre navigateur.
           </p>
         </div>
       </div>
 
       {/* What is Inspected */}
-      <section className="bg-white border border-slate-200 rounded-xl p-space-lg sm:p-space-xl shadow-sm mb-space-2xl" id="methodologie">
-        <h2 className="font-headline-md text-slate-900 font-semibold mb-space-md flex items-center gap-2">
-          <span className="material-symbols-outlined text-blue-600 text-2xl">checklist</span>
-          Ce qui est inspecté en V1
+      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs mb-10" id="methodologie">
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <span>Ce que nous vérifions concrètement</span>
         </h2>
 
-        <div className="space-y-space-md text-sm text-slate-600">
-          <div className="border-b border-slate-100 pb-space-sm">
-            <h3 className="font-semibold text-slate-900 mb-1 flex items-center gap-2">
+        <div className="space-y-6 text-sm text-slate-600">
+          <div className="border-b border-slate-100 pb-5">
+            <h3 className="font-bold text-slate-900 mb-1 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              1. Chiffrement HTTPS &amp; Négociation TLS
+              1. Le cadenas de sécurité HTTPS
             </h3>
-            <p className="font-body-sm text-slate-600 pl-4">
-              Vérification de la redirection permanente de HTTP vers HTTPS, version du protocole (TLS 1.2, 1.3), validité du certificat X.509, date d&apos;expiration et algorithme de chiffrement.
+            <p className="text-xs sm:text-sm text-slate-600 pl-4 leading-relaxed">
+              Nous vérifions que votre site redirige bien automatiquement les visiteurs vers une adresse sécurisée (https://) et que votre certificat SSL est valide et récent. C&apos;est la base indispensable pour protéger les données échangées.
             </p>
           </div>
 
-          <div className="border-b border-slate-100 pb-space-sm">
-            <h3 className="font-semibold text-slate-900 mb-1 flex items-center gap-2">
+          <div className="border-b border-slate-100 pb-5">
+            <h3 className="font-bold text-slate-900 mb-1 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              2. En-têtes de sécurité HTTP défensifs
+              2. Les boucliers de protection du navigateur (En-têtes HTTP)
             </h3>
-            <p className="font-body-sm text-slate-600 pl-4">
-              Analyse de la syntaxe et de la robustesse des en-têtes recommandés par l&apos;OWASP : <code>Content-Security-Policy</code>, <code>Strict-Transport-Security</code> (HSTS), <code>X-Content-Type-Options</code>, <code>X-Frame-Options</code>, <code>Referrer-Policy</code> et <code>Permissions-Policy</code>.
+            <p className="text-xs sm:text-sm text-slate-600 pl-4 leading-relaxed">
+              Votre serveur peut donner des consignes strictes au navigateur de vos visiteurs pour empêcher les pirates d&apos;injecter du code malveillant (attaques XSS) ou de pièger votre site dans un faux cadre (clickjacking).
             </p>
           </div>
 
-          <div className="border-b border-slate-100 pb-space-sm">
-            <h3 className="font-semibold text-slate-900 mb-1 flex items-center gap-2">
+          <div className="border-b border-slate-100 pb-5">
+            <h3 className="font-bold text-slate-900 mb-1 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              3. Protection des cookies de session
+              3. La protection des cookies et des sessions
             </h3>
-            <p className="font-body-sm text-slate-600 pl-4">
-              Contrôle des attributs <code>Secure</code> (transmission HTTPS exclusive), <code>HttpOnly</code> (inaccessibilité depuis JavaScript) et <code>SameSite</code> (atténuation CSRF).
+            <p className="text-xs sm:text-sm text-slate-600 pl-4 leading-relaxed">
+              Les cookies permettent de reconnaître les utilisateurs connectés. Nous vérifions que les options de sécurité indispensables (Secure, HttpOnly, SameSite) sont bien activées pour que personne ne puisse voler une session utilisateur.
             </p>
           </div>
 
-          <div className="border-b border-slate-100 pb-space-sm">
-            <h3 className="font-semibold text-slate-900 mb-1 flex items-center gap-2">
+          <div className="border-b border-slate-100 pb-5">
+            <h3 className="font-bold text-slate-900 mb-1 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              4. Détection du contenu mixte (Mixed Content)
+              4. L&apos;absence de contenu non chiffré (Contenu mixte)
             </h3>
-            <p className="font-body-sm text-slate-600 pl-4">
-              Recherche des inclusions non chiffrées (scripts, styles, images) chargées via le protocole http:// au sein d&apos;une page servie en https://.
+            <p className="text-xs sm:text-sm text-slate-600 pl-4 leading-relaxed">
+              Même si votre site affiche un cadenas HTTPS, charger une simple image ou un script via http:// en clair peut faire disparaître le cadenas de sécurité et alerter vos visiteurs.
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold text-slate-900 mb-1 flex items-center gap-2">
+            <h3 className="font-bold text-slate-900 mb-1 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              5. Actions de formulaires &amp; Empreinte technique
+              5. La protection des formulaires de saisie
             </h3>
-            <p className="font-body-sm text-slate-600 pl-4">
-              Vérification des balises <code>&lt;form&gt;</code> pour s&apos;assurer qu&apos;aucune donnée n&apos;est soumise vers un endpoint non chiffré. Détection passive des signatures de serveurs et frameworks (présentée strictly à titre informatif).
+            <p className="text-xs sm:text-sm text-slate-600 pl-4 leading-relaxed">
+              Nous vérifions que les formulaires (contact, connexion, paiement) envoient bien leurs informations vers une destination chiffrée, pour que les données de vos clients ne voyagent jamais en clair sur internet.
             </p>
           </div>
         </div>
       </section>
 
       {/* What We Never Do */}
-      <section className="bg-red-50/50 border border-red-200 rounded-xl p-space-lg sm:p-space-xl shadow-sm mb-space-2xl" id="passive-guarantee">
-        <div className="flex items-center gap-2 text-red-700 font-semibold mb-space-xs font-headline-sm">
-          <span className="material-symbols-outlined text-2xl text-red-600">block</span>
+      <section className="bg-red-50/50 border border-red-200 rounded-2xl p-6 sm:p-8 shadow-xs mb-10" id="passive-guarantee">
+        <h2 className="text-base sm:text-lg font-bold text-red-800 mb-2">
           Ce que Security Health ne fait JAMAIS
-        </div>
-        <p className="font-body-sm text-slate-700 mb-space-md leading-relaxed">
-          Pour garantir une totale innocuité sur votre infrastructure de production, notre moteur s&apos;interdit formellement les opérations suivantes :
+        </h2>
+        <p className="text-xs sm:text-sm text-slate-700 mb-5 leading-relaxed">
+          Pour garantir la sécurité et la stabilité totale de votre site, notre outil s&apos;interdit formellement :
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-label-code-sm">
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
-            <span>Aucune tentative d&apos;injection SQL ou XSS</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="bg-white/80 border border-red-200 p-3 rounded-xl flex items-center gap-2 text-red-900">
+            <span className="text-red-600 font-bold">
+              <svg className="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </span>
+            <span>Aucune tentative d&apos;intrusion ou de piratage</span>
           </div>
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
-            <span>Aucune attaque par force brute</span>
+          <div className="bg-white/80 border border-red-200 p-3 rounded-xl flex items-center gap-2 text-red-900">
+            <span className="text-red-600 font-bold">
+              <svg className="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </span>
+            <span>Aucune attaque par force brute (mots de passe)</span>
           </div>
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
-            <span>Aucun scan de ports exhaustif</span>
-          </div>
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
+          <div className="bg-white/80 border border-red-200 p-3 rounded-xl flex items-center gap-2 text-red-900">
+            <span className="text-red-600 font-bold">
+              <svg className="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </span>
             <span>Aucune soumission automatique de formulaires</span>
           </div>
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
-            <span>Aucune tentative d&apos;accès à des réseaux privés (anti-SSRF)</span>
-          </div>
-          <div className="bg-white/80 border border-red-200 p-2.5 rounded-lg flex items-center gap-2 text-red-800">
-            <span className="material-symbols-outlined text-sm text-red-600">close</span>
+          <div className="bg-white/80 border border-red-200 p-3 rounded-xl flex items-center gap-2 text-red-900">
+            <span className="text-red-600 font-bold">
+              <svg className="w-3.5 h-3.5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </span>
             <span>Aucune récupération de données privées</span>
           </div>
         </div>
       </section>
 
-      {/* Deterministic Scoring System */}
-      <section className="bg-white border border-slate-200 rounded-xl p-space-lg sm:p-space-xl shadow-sm mb-space-2xl">
-        <h2 className="font-headline-md text-slate-900 font-semibold mb-space-md flex items-center gap-2">
-          <span className="material-symbols-outlined text-blue-600 text-2xl">calculate</span>
-          Calcul déterministe du score de santé
+      {/* Score Explanation */}
+      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs mb-10">
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
+          Comment lire votre note de 0 à 100 ?
         </h2>
-
-        <p className="font-body-md text-slate-600 mb-space-md text-sm leading-relaxed">
-          Le score global est compris entre <strong>0 et 100</strong>. Il est calculé de manière mathématique et déterministe selon les pénalités associées à chaque anomalie observée :
+        <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+          Chaque point de sécurité validé protège votre site. Si une faiblesse est détectée, des points sont déduits selon la gravité :
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center mb-space-md">
-          <div className="bg-emerald-50 border border-emerald-200 p-3 rounded-lg flex flex-col">
-            <span className="font-metric-stat text-xl text-emerald-700 font-bold">90 – 100</span>
-            <span className="font-headline-sm text-emerald-800 text-xs font-semibold mt-1">Excellent</span>
-            <span className="text-[11px] text-emerald-700/80 mt-1">Grade A+ / A</span>
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center">
+          <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl flex flex-col">
+            <span className="text-2xl text-emerald-700 font-extrabold">90 – 100</span>
+            <span className="text-xs font-bold text-emerald-800 mt-1">Excellent (A)</span>
+            <span className="text-[11px] text-emerald-700 mt-1">Bonnes pratiques actives</span>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg flex flex-col">
-            <span className="font-metric-stat text-xl text-blue-700 font-bold">75 – 89</span>
-            <span className="font-headline-sm text-blue-800 text-xs font-semibold mt-1">Bon</span>
-            <span className="text-[11px] text-blue-700/80 mt-1">Grade B+ / B</span>
+          <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col">
+            <span className="text-2xl text-blue-700 font-extrabold">75 – 89</span>
+            <span className="text-xs font-bold text-blue-800 mt-1">Bon niveau (B)</span>
+            <span className="text-[11px] text-blue-700 mt-1">Quelques réglages utiles</span>
           </div>
 
-          <div className="bg-amber-50 border border-amber-200 p-3 rounded-lg flex flex-col">
-            <span className="font-metric-stat text-xl text-amber-700 font-bold">50 – 74</span>
-            <span className="font-headline-sm text-amber-800 text-xs font-semibold mt-1">À améliorer</span>
-            <span className="text-[11px] text-amber-700/80 mt-1">Grade C</span>
+          <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl flex flex-col">
+            <span className="text-2xl text-amber-700 font-extrabold">50 – 74</span>
+            <span className="text-xs font-bold text-amber-800 mt-1">À améliorer (C)</span>
+            <span className="text-[11px] text-amber-700 mt-1">Des faiblesses visibles</span>
           </div>
 
-          <div className="bg-red-50 border border-red-200 p-3 rounded-lg flex flex-col">
-            <span className="font-metric-stat text-xl text-red-600 font-bold">0 – 49</span>
-            <span className="font-headline-sm text-red-700 text-xs font-semibold mt-1">Critique</span>
-            <span className="text-[11px] text-red-600/80 mt-1">Grade F</span>
+          <div className="bg-red-50 border border-red-200 p-4 rounded-xl flex flex-col">
+            <span className="text-2xl text-red-600 font-extrabold">0 – 49</span>
+            <span className="text-xs font-bold text-red-700 mt-1">Urgent (F)</span>
+            <span className="text-[11px] text-red-600 mt-1">Protections de base absentes</span>
           </div>
         </div>
       </section>
 
       {/* CTA Bottom */}
-      <div className="text-center py-space-lg flex flex-col items-center">
-        <h3 className="font-headline-sm text-slate-900 font-semibold mb-2">
-          Prêt à évaluer votre posture de sécurité ?
+      <div className="text-center py-6 flex flex-col items-center">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">
+          Prêt à tester la sécurité de votre site ?
         </h3>
         <Link
           href="/"
-          className="px-space-xl py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-headline-sm font-semibold text-sm transition-all shadow-md active:scale-95 flex items-center gap-2"
+          className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm transition-all shadow-xs active:scale-95 text-center"
         >
-          <span className="material-symbols-outlined text-base">arrow_back</span>
-          <span>Retourner à l&apos;analyseur</span>
+          Retourner au formulaire de test
         </Link>
       </div>
     </div>

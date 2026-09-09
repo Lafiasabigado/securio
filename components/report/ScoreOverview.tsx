@@ -11,125 +11,131 @@ export function ScoreOverview({ scan }: ScoreOverviewProps) {
   const { score, grade, summary, stats, telemetry } = scan;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* Circular Score Radar Card */}
-      <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-space-md sm:p-space-lg flex flex-col justify-between relative overflow-hidden shadow-sm">
-        <div className="flex flex-col sm:flex-row items-center gap-space-lg z-10">
+      <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xs">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
           <ScoreRadar score={score} grade={grade} size="md" />
 
-          <div className="flex flex-col gap-space-xs text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 self-center sm:self-start px-2 py-0.5 rounded bg-blue-50 border border-blue-100 font-label-code-sm text-blue-700 font-medium">
-              <span className="material-symbols-outlined text-sm">shield_with_heart</span>
-              <span>ÉVALUATION SYNTHÉTIQUE DE SÉCURITÉ</span>
+          <div className="flex flex-col gap-2 text-center sm:text-left flex-1 min-w-0">
+            <div className="inline-flex items-center gap-2 self-center sm:self-start px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-xs text-blue-700 font-semibold uppercase tracking-wider">
+              <span>Bilan global de protection</span>
             </div>
-            <h2 className="font-headline-md text-slate-900 font-semibold leading-tight">
+
+            <h2 className="text-lg sm:text-xl text-slate-900 font-bold leading-snug">
               {score >= 80
-                ? "Bonne posture de sécurité de base avec quelques ajustements défensifs."
+                ? "Très bon niveau de protection : les défenses essentielles sont actives."
                 : score >= 50
-                ? "Posture de sécurité intermédiaire avec des vulnérabilités de configuration exposées."
-                : "Attention : Risques importants détectés nécessitant une remédiation urgente."}
+                ? "Niveau intermédiaire : des réglages simples permettent de renforcer votre site."
+                : "Attention requise : des faiblesses importantes doivent être corrigées."}
             </h2>
-            <p className="font-body-md text-slate-600 leading-relaxed">{summary}</p>
+
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {summary ||
+                "Nous avons analysé la configuration publique de votre site pour repérer ce qui protège vos utilisateurs et ce qui pourrait être exploité par des attaquants."}
+            </p>
           </div>
         </div>
 
-        {/* Breakdown chips */}
-        <div className="grid grid-cols-3 gap-3 pt-space-lg mt-space-md border-t border-slate-100 z-10">
-          <div className="bg-slate-50 border border-slate-200/80 px-3 sm:px-4 py-3 rounded-lg flex flex-col">
-            <span className="font-label-code-sm text-slate-500 uppercase tracking-wider font-semibold text-[11px]">
-              CONTRÔLES VALIDÉS
+        {/* Breakdown counters - Fully responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 mt-6 border-t border-slate-100">
+          <div className="bg-slate-50 border border-slate-200/80 p-4 rounded-xl flex flex-col">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              Points forts
             </span>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span className="font-metric-stat text-2xl text-emerald-700 font-bold">{stats.passed}</span>
-              <span className="text-body-sm text-slate-500 hidden sm:inline">tests conformes</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl text-emerald-700 font-extrabold">{stats.passed}</span>
+              <span className="text-xs text-slate-600">tests réussis</span>
             </div>
+            <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+              Éléments bien sécurisés
+            </p>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200/80 px-3 sm:px-4 py-3 rounded-lg flex flex-col">
-            <span className="font-label-code-sm text-slate-500 uppercase tracking-wider font-semibold text-[11px]">
-              ATTENTION REQUISE
+          <div className="bg-slate-50 border border-slate-200/80 p-4 rounded-xl flex flex-col">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              À améliorer
             </span>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-              <span className="font-metric-stat text-2xl text-amber-700 font-bold">{stats.warning}</span>
-              <span className="text-body-sm text-slate-500 hidden sm:inline">modérés</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl text-amber-700 font-extrabold">{stats.warning}</span>
+              <span className="text-xs text-slate-600">modérés</span>
             </div>
+            <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+              Améliorations conseillées
+            </p>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200/80 px-3 sm:px-4 py-3 rounded-lg flex flex-col">
-            <span className="font-label-code-sm text-slate-500 uppercase tracking-wider font-semibold text-[11px]">
-              ANOMALIE IMPORTANTE
+          <div className="bg-slate-50 border border-slate-200/80 p-4 rounded-xl flex flex-col">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              Priorités
             </span>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
-              <span className="font-metric-stat text-2xl text-red-600 font-bold">{stats.critical}</span>
-              <span className="text-body-sm text-slate-500 hidden sm:inline">critiques</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-2xl text-red-600 font-extrabold">{stats.critical}</span>
+              <span className="text-xs text-slate-600">critiques</span>
             </div>
+            <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+              À corriger en priorité
+            </p>
           </div>
         </div>
       </div>
 
       {/* Infrastructure Context Card */}
-      <div className="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-space-md sm:p-space-lg flex flex-col justify-between shadow-sm">
-        <div className="flex flex-col gap-space-xs">
+      <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xs">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="font-label-code-sm text-slate-500 uppercase tracking-wider font-semibold text-[11px]">
-              VÉRIFICATION PÉRIMÉTRIQUE
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Fiche technique du site
             </span>
-            <span className="font-label-code-sm text-emerald-700 font-medium flex items-center gap-1">
-              <span className="material-symbols-outlined text-sm text-emerald-600">check_circle</span> Validé en direct
+            <span className="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              En ligne &amp; accessible
             </span>
           </div>
-          <h3 className="font-headline-sm text-slate-900 font-semibold">Origin Telemetry Stack</h3>
 
-          <div className="grid grid-cols-2 gap-2 pt-2 font-label-code-sm">
-            <div className="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
-              <span className="text-slate-500 text-xs">Signature serveur</span>
-              <span className="text-slate-900 font-semibold truncate" title={telemetry.serverHeader}>
-                {telemetry.serverHeader || "Inconnue"}
+          <h3 className="text-base text-slate-900 font-bold">
+            Informations de connexion observées
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+            <div className="bg-slate-50 border border-slate-200/80 p-3 rounded-xl flex flex-col">
+              <span className="text-slate-500 text-[11px] font-medium">Serveur web</span>
+              <span className="text-slate-900 font-semibold truncate mt-0.5" title={telemetry.serverHeader}>
+                {telemetry.serverHeader || "Standard (masqué)"}
               </span>
             </div>
-            <div className="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
-              <span className="text-slate-500 text-xs">Chiffrement TLS</span>
-              <span className="text-slate-900 font-semibold truncate" title={telemetry.tlsCipher || telemetry.tlsVersion}>
-                {telemetry.tlsVersion || "TLS standard"}
+
+            <div className="bg-slate-50 border border-slate-200/80 p-3 rounded-xl flex flex-col">
+              <span className="text-slate-500 text-[11px] font-medium">Cadenas SSL / Chiffrement</span>
+              <span className="text-slate-900 font-semibold truncate mt-0.5" title={telemetry.tlsCipher || telemetry.tlsVersion}>
+                {telemetry.tlsVersion || "Protocole sécurisé"}
               </span>
             </div>
-            <div className="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
-              <span className="text-slate-500 text-xs">Routage IP</span>
-              <span className="text-slate-900 font-semibold truncate">{telemetry.ip || "104.21.xx.xx"}</span>
+
+            <div className="bg-slate-50 border border-slate-200/80 p-3 rounded-xl flex flex-col">
+              <span className="text-slate-500 text-[11px] font-medium">Adresse IP du serveur</span>
+              <span className="text-slate-900 font-semibold truncate mt-0.5 font-mono text-[11px]">
+                {telemetry.ip || "Serveur public"}
+              </span>
             </div>
-            <div className="bg-slate-50 border border-slate-200/80 p-2.5 rounded flex flex-col">
-              <span className="text-slate-500 text-xs">Latence d&apos;analyse</span>
-              <span className="text-emerald-700 font-semibold">{telemetry.latencyMs}ms</span>
+
+            <div className="bg-slate-50 border border-slate-200/80 p-3 rounded-xl flex flex-col">
+              <span className="text-slate-500 text-[11px] font-medium">Temps de réponse</span>
+              <span className="text-emerald-700 font-semibold truncate mt-0.5">
+                {telemetry.latencyMs} millisecondes (rapide)
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Historical Sparkline */}
-        <div className="pt-space-md flex flex-col gap-1.5 border-t border-slate-100 mt-4">
-          <div className="flex items-center justify-between font-label-code-sm text-slate-500 text-xs">
-            <span>Projection de posture relative</span>
-            <span className="text-blue-600 font-semibold">Évaluation passive RFC</span>
-          </div>
-          <div className="h-16 w-full bg-slate-50 border border-slate-200/80 rounded p-2 flex items-end">
-            <svg className="w-full h-full overflow-visible" fill="none" preserveAspectRatio="none" viewBox="0 0 300 48">
-              <path
-                className="text-blue-600"
-                d="M0,40 L30,38 L60,42 L90,34 L120,36 L150,28 L180,30 L210,22 L240,24 L270,14 L300,12"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              />
-              <path
-                className="text-blue-100"
-                d="M0,40 L30,38 L60,42 L90,34 L120,36 L150,28 L180,30 L210,22 L240,24 L270,14 L300,12 L300,48 L0,48 Z"
-                fill="currentColor"
-                opacity="0.6"
-              />
-              <circle className="fill-blue-600 stroke-white stroke-2" cx="300" cy="12" r="4" />
-            </svg>
-          </div>
+        {/* Reassuring Guidance Box */}
+        <div className="pt-5 border-t border-slate-100 mt-5 flex flex-col gap-1.5">
+          <span className="text-xs font-semibold text-slate-900">
+            Comment agir sur vos résultats ?
+          </span>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Consultez les constats détaillés plus bas : chaque point inclut une explication simple du risque et la solution prête à copier pour votre équipe ou hébergeur.
+          </p>
         </div>
       </div>
     </div>

@@ -2,78 +2,79 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-slate-50 border-t border-slate-200 py-space-2xl mt-auto">
-      <div className="w-full max-w-7xl mx-auto px-space-md sm:px-space-xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-space-xl pb-space-xl border-b border-slate-200">
-          <div className="md:col-span-2 flex flex-col gap-space-sm">
-            <div className="flex items-center gap-space-xs">
-              <span className="material-symbols-outlined text-blue-600 text-base">verified_user</span>
-              <span className="font-headline-sm text-slate-900 font-semibold">
-                Architecture système de Security Health
+    <footer className="w-full bg-white border-t border-slate-200 py-12 mt-auto">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-slate-100">
+          <div className="sm:col-span-2 flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <span className="text-base font-bold text-slate-900">
+                Security Health
               </span>
             </div>
-            <p className="font-body-sm text-slate-600 max-w-md leading-relaxed">
-              Moteur passif de diagnostic et d&apos;évaluation de posture de sécurité à impact nul. Conçu pour les exigences d&apos;intégrité élevées, l&apos;audit de périmètre et la prévention des dérives de configuration.
+
+            <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
+              Diagnostic passif et bienveillant de la sécurité des sites internet. Nous aidons les créateurs, e-commerçants et développeurs à identifier leurs failles et à protéger leurs visiteurs sans risque.
             </p>
-            <div className="flex flex-wrap items-center gap-space-xs pt-space-xs">
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded-md font-label-code-sm text-slate-700 shadow-2xs">
-                <span className="material-symbols-outlined text-xs text-emerald-600">check_circle</span>
-                SOC 2 Type II
+
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-md text-slate-700 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Non destructif
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded-md font-label-code-sm text-slate-700 shadow-2xs">
-                <span className="material-symbols-outlined text-xs text-emerald-600">check_circle</span>
-                ISO/IEC 27001
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-md text-slate-700 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Zéro intrusion
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded-md font-label-code-sm text-slate-700 shadow-2xs">
-                <span className="material-symbols-outlined text-xs text-emerald-600">check_circle</span>
-                Conforme RFC 7230
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-md text-slate-700 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Conforme aux standards
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col gap-space-xs text-sm">
-            <span className="font-label-code-sm uppercase tracking-wider text-slate-900 font-semibold mb-1">
-              Plateforme
+          <div className="flex flex-col gap-2.5 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 mb-1 uppercase tracking-wider text-xs">
+              Navigation
             </span>
             <Link href="/" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Analyseur de sécurité
+              Tester un site
             </Link>
             <Link href="/report" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Rapports d&apos;évaluation
+              Consulter le dernier rapport
             </Link>
             <Link href="/about" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Méthodologie &amp; Limites
-            </Link>
-            <Link href="/about#faq" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Foire Aux Questions
+              Guide &amp; Méthodologie
             </Link>
           </div>
 
-          <div className="flex flex-col gap-space-xs text-sm">
-            <span className="font-label-code-sm uppercase tracking-wider text-slate-900 font-semibold mb-1">
-              Sécurité &amp; Éthique
+          <div className="flex flex-col gap-2.5 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 mb-1 uppercase tracking-wider text-xs">
+              Engagements
             </span>
             <Link href="/about#passive-guarantee" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Garantie d&apos;analyse passive
+              Garantie d&apos;analyse sans risque
             </Link>
-            <Link href="/about#ssrf-protection" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Protection anti-SSRF
+            <Link href="/about#methodologie" className="text-slate-600 hover:text-slate-900 transition-colors">
+              Points de contrôle
             </Link>
-            <Link href="/about#responsible-disclosure" className="text-slate-600 hover:text-slate-900 transition-colors">
-              Divulgation responsable
-            </Link>
-            <span className="text-slate-400 text-xs mt-2">
-              Aucune intrusion • Pas de payloads • Non destructif
+            <span className="text-slate-400 text-xs mt-2 leading-relaxed">
+              Outil d&apos;aide à la décision défensif et éducatif.
             </span>
           </div>
         </div>
 
-        <div className="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-xs text-slate-500">
-          <p>© 2025 Security Health. Tous droits réservés. Diagnostic passif conforme aux normes RFC 7230 et OWASP.</p>
-          <div className="flex items-center gap-space-md font-label-code-sm">
-            <span>Audit passif certifié</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-            <span>Version v2.4.0</span>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} Security Health. Tous droits réservés.</p>
+          <div className="flex items-center gap-2">
+            <span>Diagnostic web instantané</span>
+            <span>•</span>
+            <span className="text-emerald-700 font-semibold">Moteur actif</span>
           </div>
         </div>
       </div>
