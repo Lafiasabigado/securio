@@ -24,10 +24,17 @@ export function analyzeSecurityHeaders(headers: Record<string, string>): Finding
       cwe: "CWE-693",
     });
   } else {
-    // Inspect CSP directives for obvious weaknesses
-    const hasUnsafeInline = csp.includes("'unsafe-inline'");
-    const hasUnsafeEval = csp.includes("'unsafe-eval'");
-    const hasWildcardScript = /script-src[^;]*\*/.test(csp);
+    // Inspect CSP script directives for script execution weaknesses (XSS)
+    const scriptDirectiveMatch = csp.match(/script-src([^;]+)/i);
+    const defaultDirectiveMatch = csp.match(/default-src([^;]+)/i);
+    const scriptDirectives = scriptDirectiveMatch
+      ? scriptDirectiveMatch[1]
+      : defaultDirectiveMatch
+      ? defaultDirectiveMatch[1]
+      : "";
+
+    const hasUnsafeInline = scriptDirectives.includes("'unsafe-inline'");
+    const hasWildcardScript = scriptDirectives.includes("*");
 
     if (hasUnsafeInline || hasWildcardScript) {
       findings.push({
