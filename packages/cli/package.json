@@ -1,0 +1,43 @@
+{
+  "name": "securio-cli",
+  "version": "0.1.0",
+  "description": "Analyseur de sécurité web passive en ligne de commande",
+  "type": "module",
+  "bin": {
+    "securio": "dist/cli.js",
+    "securio-cli": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "security",
+    "scanner",
+    "cli",
+    "audit",
+    "https",
+    "headers",
+    "cookies",
+    "csp",
+    "hsts"
+  ],
+  "author": "Securio",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild src/cli.ts --bundle --platform=node --format=esm --target=node18 --banner:js=\"#!/usr/bin/env node\" --outfile=dist/cli.js && chmod +x dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "pack": "npm pack"
+  },
+  "devDependencies": {
+    "@securio/scanner": "*",
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.0.0"
+  }
+}
