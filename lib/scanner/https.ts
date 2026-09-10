@@ -115,7 +115,7 @@ export async function checkHttpToHttpsRedirect(hostname: string): Promise<{ redi
       redirect: "manual",
       signal: controller.signal,
       headers: {
-        "User-Agent": "SecurityHealth-PassiveAudit/1.0",
+        "User-Agent": "Securio-PassiveAudit/1.0",
       },
     });
 
