@@ -33,21 +33,21 @@ export function analyzeSecurityHeaders(headers: Record<string, string>): Finding
       ? defaultDirectiveMatch[1]
       : "";
 
-    const hasUnsafeInline = scriptDirectives.includes("'unsafe-inline'");
     const hasWildcardScript = scriptDirectives.includes("*");
+    const hasHttpScript = /http:\/\//i.test(scriptDirectives);
 
-    if (hasUnsafeInline || hasWildcardScript) {
+    if (hasWildcardScript || hasHttpScript) {
       findings.push({
         id: "header-csp-permissive",
         category: "headers",
         categoryTitle: "En-têtes de sécurité",
-        title: "Content-Security-Policy affaibli ('unsafe-inline' ou wildcard détecté)",
+        title: "Content-Security-Policy affaibli (wildcard '*' ou protocole HTTP détecté)",
         severity: "medium",
         status: "warning",
-        description: "L'en-tête CSP est présent mais contient des directives permissives comme 'unsafe-inline' ou un caractère générique (*).",
-        importance: "L'utilisation de 'unsafe-inline' réduit considérablement la protection offerte par le CSP contre les attaques XSS.",
-        recommendation: "Remplacez 'unsafe-inline' par des condensats cryptographiques (hashes SHA-256) ou des nonces aléatoires par requête.",
-        remediationSnippet: "Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-randomUniqueToken';",
+        description: "L'en-tête CSP est présent mais contient des directives très permissives (wildcard * ou protocoles HTTP non chiffrés).",
+        importance: "L'utilisation de wildcards réduit considérablement la protection offerte par le CSP contre les attaques XSS.",
+        recommendation: "Restreignez les sources de scripts aux domaines d'origine ('self') et aux services sécurisés HTTPS.",
+        remediationSnippet: "Content-Security-Policy: default-src 'self'; script-src 'self' https:;",
         detectedValue: csp.length > 80 ? `${csp.substring(0, 80)}...` : csp,
         cwe: "CWE-1021",
       });
