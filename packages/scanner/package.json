@@ -1,0 +1,23 @@
+{
+  "name": "@securio/scanner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Moteur d'analyse de sécurité web passive Securio",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

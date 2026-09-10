@@ -1,26 +1,109 @@
 # Securio 
 
-> **L'app de scannage de site web & audit de sécurité passif instantané.**  
-> Testez gratuitement la robustesse de votre site en 5 secondes, sans installation et sans risque d'intrusion.
+> **L'application et CLI d'audit de sécurité web passif instantané.**  
+> Testez gratuitement la robustesse de votre site en 5 secondes, sans installation et sans risque d'intrusion, directement sur le web ou depuis votre terminal.
 
 [![Site web en production](https://img.shields.io/badge/Production-securioapp.vercel.app-2563eb?style=for-the-badge&logo=vercel)](https://securioapp.vercel.app/)
+[![npm version](https://img.shields.io/npm/v/securio-cli.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/securio-cli)
 [![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Bilingue](https://img.shields.io/badge/Langues-FR%20%7C%20EN-emerald?style=for-the-badge)](https://securioapp.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 ---
 
 ## 🌐 Démonstration en ligne
-Accédez à l'application déployée sur Vercel :  
-**[https://securioapp.vercel.app/](https://securioapp.vercel.app/)**
+Accédez à l'application web déployée sur Vercel :  
+👉 **[https://securioapp.vercel.app/](https://securioapp.vercel.app/)**
+
+---
+
+## 💻 Securio CLI — Disponible sur npm
+
+**Securio CLI** est officiellement disponible sous forme de package npm : [**`securio-cli`**](https://www.npmjs.com/package/securio-cli).
+
+Il permet aux développeurs d'auditer la sécurité passive de n'importe quel site web directement depuis le terminal ou au sein de leurs pipelines d'intégration continue (CI/CD).
+
+### Exécution instantanée (sans installation préalable)
+
+```bash
+# Analyser un site web directement
+npx securio https://example.com
+
+# Ou avec le nom complet du package
+npx securio-cli https://example.com
+```
+
+### Mode interactif
+
+Lancez simplement la commande sans argument pour être guidé :
+
+```bash
+npx securio
+```
+
+```text
+ ███████╗███████╗ ██████╗██╗   ██╗██████╗ ██╗ ██████╗ 
+ ██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██║██╔═══██╗
+ ███████╗█████╗  ██║     ██║   ██║██████╔╝██║██║   ██║
+ ╚════██║██╔══╝  ██║     ██║   ██║██╔══██╗██║██║   ██║
+ ███████║███████╗╚██████╗╚██████╔╝██║  ██║██║╚██████╔╝
+ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ 
+
+ Securio CLI v0.1.0
+ Security made visible.
+
+ ? Quelle URL souhaitez-vous analyser :
+ › https://example.com
+```
+
+### Intégration dans vos projets
+
+```bash
+npm install -D securio-cli
+```
+
+Puis dans les scripts de votre `package.json` :
+
+```json
+{
+  "scripts": {
+    "audit:security": "securio https://votresite.fr",
+    "audit:ci": "securio https://votresite.fr --json"
+  }
+}
+```
+
+### Installation globale
+
+```bash
+npm install -g securio-cli
+securio https://example.com
+```
+
+### Options CLI
+
+| Option | Alias | Description |
+|---|---|---|
+| `--json` | | Sortie au format JSON machine-readable pour CI/CD |
+| `--no-banner` | | Masquer le logo ASCII d'en-tête |
+| `-h, --help` | | Afficher l'aide et les options disponibles |
+| `-v, --version` | | Afficher le numéro de version |
+
+### Codes de retour CI/CD (Exit Codes)
+
+Securio CLI utilise des codes de retour standardisés :
+
+- **`0`** : Succès, aucun problème de sécurité critique.
+- **`1`** : Alerte de sécurité (au moins un test 'fail' détecté).
+- **`2`** : Erreur d'exécution, cible inaccessible ou adresse IP privée bloquée par la protection SSRF.
 
 ---
 
 ## À propos de Securio
 
-La plupart des piratages et fuites de données exploitent de simples défauts de configuration réseau ou d'en-têtes HTTP manquants. **Securio** est une application web conçue pour les créateurs, e-commerçants, startups et développeurs, permettant d'évaluer instantanément la sécurité de leur site sans compétences préalables en cybersécurité.
+La plupart des piratages et fuites de données exploitent de simples défauts de configuration réseau ou d'en-têtes HTTP manquants. **Securio** est conçu pour les créateurs, e-commerçants, startups et développeurs, permettant d'évaluer instantanément la sécurité d'un site sans compétences préalables en cybersécurité.
 
 ### 🛡️ Les 3 Piliers de Securio
 1. **100% Inoffensif & Zéro intrusion** : Visite votre site exactement comme un internaute ordinaire avec un navigateur (requêtes HTTP conformes aux RFC). Aucune tentative de brute-force, d'attaque par déni de service ou d'exploitation de vulnérabilité.
@@ -47,42 +130,33 @@ La plupart des piratages et fuites de données exploitent de simples défauts de
 
 ---
 
-## 🌍 Fonctionnalités
+## 📁 Architecture Monorepo
 
-- **Sélecteur Bilingue (FR / EN)** :
-  - Toggle instantané dans la barre de navigation (desktop et mobile).
-  - Détection automatique de la langue du navigateur.
-  - Persistance du choix dans le `localStorage`.
-- **Référencement & SEO Avancé** :
-  - Métadonnées riches ciblées sur les requêtes à forte intention (*"app de scannage de site"*, *"scanner site web"*, etc.).
-  - Données structurées **JSON-LD** (`Schema.org/WebApplication`).
-  - Balises OpenGraph et Twitter Cards avec visuels de marque.
-  - Génération dynamique de `sitemap.xml` (`app/sitemap.ts`) et `robots.txt` (`app/robots.ts`).
-- **Mode CLI pour Développeurs** :
-  - Commande prête à l'emploi : `npx securio scan <url> --json`.
-- **Rapports Interactifs** :
-  - Graphique de score en radar SVG animé.
-  - Filtres de vulnérabilités par sévérité (Critique, Avertissement, Conforme).
-  - Export et partage du rapport.
+Le projet est organisé en un monorepo léger partageant le même moteur d'analyse :
 
----
-
-## Stack Technique
-
-- **Framework** : [Next.js 16 (App Router)](https://nextjs.org/)
-- **UI & Rendu** : [React 19](https://react.dev/)
-- **Typage** : [TypeScript 5](https://www.typescriptlang.org/)
-- **Style** : [Tailwind CSS v4](https://tailwindcss.com/)
-- **Validation** : [Zod](https://zod.dev/)
-- **Déploiement** : [Vercel](https://vercel.com/)
+```text
+securityhealth/
+├── app/                  # Application web Next.js 16 (App Router)
+├── components/           # Composants UI React 19 (Radar, Findings, Terminal)
+├── lib/
+│   ├── i18n/             # Support bilingue FR / EN
+│   ├── scanner/          # Ponts de réexportation vers @securio/scanner
+│   └── validation/       # Validation Zod des requêtes
+├── packages/
+│   ├── scanner/          # Moteur d'analyse passif partagé (@securio/scanner)
+│   │   ├── src/          # Types, modules HTTP, TLS, Headers, Cookies, SSRF
+│   │   └── package.json
+│   └── cli/              # Package npm Securio CLI (securio-cli)
+│       ├── src/          # CLI interactif, formatters, spinner, bannières
+│       ├── package.json  # Déclaration des binaires `securio` et `securio-cli`
+│       └── README.md
+├── package.json          # Configuration Workspaces npm
+└── tsconfig.json         # Configuration TypeScript
+```
 
 ---
 
-## Démarrage Rapide en Local
-
-### Prérequis
-- Node.js 20+ ou supérieur
-- npm, yarn ou pnpm
+## 🚀 Démarrage Rapide en Local
 
 ### 1. Cloner le dépôt
 ```bash
@@ -95,48 +169,17 @@ cd securio
 npm install
 ```
 
-### 3. Lancer le serveur de développement
+### 3. Compiler les packages partagés
+```bash
+npm run build:all
+```
+
+### 4. Lancer l'application web en développement
 ```bash
 npm run dev
 ```
 
 Ouvrez ensuite [http://localhost:3000](http://localhost:3000) dans votre navigateur.
-
-### 4. Compiler pour la production
-```bash
-npm run build
-npm run start
-```
-
----
-
-## 📁 Architecture du Projet
-
-```text
-securio/
-├── app/
-│   ├── about/            # Page Méthodologie & Transparence
-│   ├── api/scan/         # Moteur API de scannage passif
-│   ├── report/           # Page de consultation du rapport
-│   ├── scan/             # Page de progression télémétrique
-│   ├── layout.tsx        # Layout racine + SEO + JSON-LD + i18n
-│   ├── page.tsx          # Page d'accueil & formulaire de scan
-│   ├── robots.ts         # Générateur robots.txt
-│   ├── sitemap.ts        # Générateur sitemap.xml
-│   └── globals.css       # Styles globaux & Tailwind
-├── components/
-│   ├── report/           # Composants du rapport (Radar, Findings, Overview)
-│   ├── scan/             # Télémétrie et étapes de scan
-│   └── ui/               # Header bilingue, Footer, Badges, Radar
-├── lib/
-│   ├── i18n/             # Dictionnaire et Context FR/EN
-│   ├── scanner/          # Modules d'analyse passive HTTP, HTTPS, Cookies, Headers
-│   └── validation/       # Validation Zod des URLs
-└── public/
-    └── images/
-        ├── securio.png   # Logo officiel Securio
-        └── sucurio.png   # Source originale du logo
-```
 
 ---
 

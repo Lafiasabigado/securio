@@ -2,13 +2,20 @@
   "name": "securio",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run build:scanner && next dev",
+    "build": "npm --workspace=@securio/scanner run build && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:scanner": "npm --workspace=@securio/scanner run build",
+    "build:cli": "npm --workspace=securio-cli run build",
+    "build:all": "npm --workspace=@securio/scanner run build && npm --workspace=securio-cli run build"
   },
   "dependencies": {
+    "@securio/scanner": "*",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
