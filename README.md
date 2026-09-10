@@ -1,4 +1,4 @@
-# Securio 🛡️
+# Securio 
 
 > **L'app de scannage de site web & audit de sécurité passif instantané.**  
 > Testez gratuitement la robustesse de votre site en 5 secondes, sans installation et sans risque d'intrusion.
@@ -14,11 +14,11 @@
 
 ## 🌐 Démonstration en ligne
 Accédez à l'application déployée sur Vercel :  
-👉 **[https://securioapp.vercel.app/](https://securioapp.vercel.app/)**
+**[https://securioapp.vercel.app/](https://securioapp.vercel.app/)**
 
 ---
 
-## ✨ À propos de Securio
+## À propos de Securio
 
 La plupart des piratages et fuites de données exploitent de simples défauts de configuration réseau ou d'en-têtes HTTP manquants. **Securio** est une application web conçue pour les créateurs, e-commerçants, startups et développeurs, permettant d'évaluer instantanément la sécurité de leur site sans compétences préalables en cybersécurité.
 
@@ -33,17 +33,17 @@ La plupart des piratages et fuites de données exploitent de simples défauts de
 
 | Catégorie | Point de contrôle | Description |
 |---|---|---|
-| 🔒 **HTTPS & Chiffrement** | Cadenas SSL/TLS | Vérification de la redirection HTTPS forcée et de la validité du certificat SSL. |
-| 🛡️ **En-têtes HTTP** | Content-Security-Policy (CSP) | Prévention des attaques par injection de scripts malveillants (XSS). |
-| 🛡️ **En-têtes HTTP** | Strict-Transport-Security (HSTS) | Forçage de la communication chiffrée permanente avec le domaine. |
-| 🛡️ **En-têtes HTTP** | X-Frame-Options | Protection contre le détournement de clic (Clickjacking). |
-| 🛡️ **En-têtes HTTP** | X-Content-Type-Options | Blocage du reniflement de type MIME non sécurisé. |
-| 🛡️ **En-têtes HTTP** | Referrer-Policy | Protection contre la fuite d'URLs privées vers des tiers. |
-| 🛡️ **En-têtes HTTP** | Permissions-Policy | Contrôle des APIs sensibles (caméra, microphone, géolocalisation). |
-| 🍪 **Cookies de Session** | Attributs `Secure`, `HttpOnly`, `SameSite` | Protection contre le vol de session et les attaques CSRF. |
-| 🌐 **Contenu Mixte** | Détection HTTP/HTTPS | Contrôle de l'absence de ressources non chiffrées sur page sécurisée. |
-| 📝 **Formulaires Web** | Destinations d'action | Vérification que les formulaires transmettent les données uniquement en HTTPS. |
-| 🖥️ **Fuite Serveur** | En-têtes `Server` & `X-Powered-By` | Détection des versions logicielles exposées publiquement aux scanners d'attaquants. |
+| **HTTPS & Chiffrement** | Cadenas SSL/TLS | Vérification de la redirection HTTPS forcée et de la validité du certificat SSL. |
+| **En-têtes HTTP** | Content-Security-Policy (CSP) | Prévention des attaques par injection de scripts malveillants (XSS). |
+| **En-têtes HTTP** | Strict-Transport-Security (HSTS) | Forçage de la communication chiffrée permanente avec le domaine. |
+| **En-têtes HTTP** | X-Frame-Options | Protection contre le détournement de clic (Clickjacking). |
+| **En-têtes HTTP** | X-Content-Type-Options | Blocage du reniflement de type MIME non sécurisé. |
+| **En-têtes HTTP** | Referrer-Policy | Protection contre la fuite d'URLs privées vers des tiers. |
+| **En-têtes HTTP** | Permissions-Policy | Contrôle des APIs sensibles (caméra, microphone, géolocalisation). |
+| **Cookies de Session** | Attributs `Secure`, `HttpOnly`, `SameSite` | Protection contre le vol de session et les attaques CSRF. |
+| **Contenu Mixte** | Détection HTTP/HTTPS | Contrôle de l'absence de ressources non chiffrées sur page sécurisée. |
+| **Formulaires Web** | Destinations d'action | Vérification que les formulaires transmettent les données uniquement en HTTPS. |
+| **Fuite Serveur** | En-têtes `Server` & `X-Powered-By` | Détection des versions logicielles exposées publiquement aux scanners d'attaquants. |
 
 ---
 
@@ -67,7 +67,7 @@ La plupart des piratages et fuites de données exploitent de simples défauts de
 
 ---
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 - **Framework** : [Next.js 16 (App Router)](https://nextjs.org/)
 - **UI & Rendu** : [React 19](https://react.dev/)
@@ -78,7 +78,7 @@ La plupart des piratages et fuites de données exploitent de simples défauts de
 
 ---
 
-## 🚀 Démarrage Rapide en Local
+## Démarrage Rapide en Local
 
 ### Prérequis
 - Node.js 20+ ou supérieur
@@ -86,7 +86,7 @@ La plupart des piratages et fuites de données exploitent de simples défauts de
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/Lafiasabigado/securityhealth.git securio
+git clone https://github.com/Lafiasabigado/securio.git securio
 cd securio
 ```
 
