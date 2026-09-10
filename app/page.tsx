@@ -19,10 +19,14 @@ export default function HomePage() {
     e.preventDefault();
     setError(null);
 
-    const trimmed = url.trim();
+    let trimmed = url.trim();
     if (!trimmed) {
       setError(t.errorEmptyUrl);
       return;
+    }
+
+    if (!/^https?:\/\//i.test(trimmed)) {
+      trimmed = `https://${trimmed}`;
     }
 
     router.push(`/scan?url=${encodeURIComponent(trimmed)}`);
@@ -64,12 +68,15 @@ export default function HomePage() {
           {/* Target URL Form - Fully Responsive */}
           <div className="w-full max-w-2xl mb-6">
             <form
+              action="/scan"
+              method="GET"
               onSubmit={handleSubmit}
               className="w-full bg-white p-2 sm:p-2.5 rounded-2xl shadow-md border border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
             >
               <div className="flex-1 flex items-center w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 focus-within:bg-white transition-all">
                 <span className="text-xs font-bold text-slate-400 select-none mr-2">https://</span>
                 <input
+                  name="url"
                   aria-label={isEn ? "Your website address" : "Adresse de votre site web"}
                   className="w-full bg-transparent text-sm sm:text-base text-slate-900 focus:outline-none placeholder:text-slate-400 font-medium"
                   id="target-url-input"

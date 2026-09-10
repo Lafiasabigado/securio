@@ -76,7 +76,7 @@ export const translations: Record<Language, Translations> = {
     onlineReady: "Diagnostic en ligne opérationnel",
     newScan: "Nouveau scan",
 
-    heroBadge: "Diagnostic de sécurité web • Gratuit & Instantané",
+    heroBadge: "Diagnostic de sécurité web",
     heroTitle1: "Votre site web est-il",
     heroTitle2: "bien protégé ?",
     heroSubtitle:
@@ -141,7 +141,7 @@ export const translations: Record<Language, Translations> = {
     onlineReady: "Online scanner ready",
     newScan: "New scan",
 
-    heroBadge: "Web Security Diagnostics • Free & Instant",
+    heroBadge: "Web Security Diagnostics",
     heroTitle1: "Is your website",
     heroTitle2: "properly secured?",
     heroSubtitle:
