@@ -4,13 +4,14 @@ import argparse
 import json
 import os
 import sys
+import time
 from typing import List, Optional
 
 from .models import Finding, ScanResult
 from .scanner import run_security_scan
 from .ssrf import validate_and_resolve_target
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 # ANSI terminal colors (gracefully disabled when not in TTY or NO_COLOR is set)
 _IS_TTY = sys.stdout.isatty() and "NO_COLOR" not in os.environ
@@ -50,29 +51,70 @@ def gray(text: str) -> str:
     return _c("90", text)
 
 
-def print_banner() -> None:
-    print(bold("Securio CLI"))
-    print(gray("Security Health Scanner"))
+BANNER_ASCII = [
+    " ███████╗███████╗ ██████╗██╗   ██╗██████╗ ██╗ ██████╗ ",
+    " ██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██║██╔═══██╗",
+    " ███████╗█████╗  ██║     ██║   ██║██████╔╝██║██║   ██║",
+    " ╚════██║██╔══╝  ██║     ██║   ██║██╔══██╗██║██║   ██║",
+    " ███████║███████╗╚██████╗╚██████╔╝██║  ██║██║╚██████╔╝",
+    " ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ",
+]
+
+
+def print_banner(animated: bool = False) -> None:
+    print()
+    for line in BANNER_ASCII:
+        print(cyan(line))
+        if animated and _IS_TTY:
+            time.sleep(0.015)
+    print()
+    print(f" {bold('Securio CLI')} {gray(f'v{__version__}')}")
+    print(f" {gray('Security made visible.')}")
     print()
 
 
 def print_progress_step(name: str) -> None:
-    print(f"  {green('✓')} {name}")
+    print(f"   {green('✓')} {name}")
 
 
 def print_report(result: ScanResult) -> None:
     hr = gray("─" * 50)
     print()
-    print(bold("Securio Report"))
-    print(f"Cible : {cyan(result.url)}")
+    print(f" {bold('Securio Report')}")
+    print(f" Cible   : {cyan(result.url)}")
     if result.telemetry.ip:
-        print(
-            gray(
-                f"IP : {result.telemetry.ip} • Latence : {result.telemetry.latency_ms}ms • "
-                f"Serveur : {result.telemetry.server_header or 'Inconnu'}"
-            )
-        )
+        srv = result.telemetry.server_header or "Inconnu"
+        print(f" {gray(f'IP      : {result.telemetry.ip} • Latence : {result.telemetry.latency_ms}ms • Serveur : {srv}')}")
     print()
+
+    # Category breakdown overview (structured tree)
+    category_order = [
+        ("https", "HTTPS & Transport"),
+        ("headers", "En-têtes de sécurité"),
+        ("cookies", "Cookies"),
+        ("mixed_content", "Contenu mixte"),
+        ("forms", "Formulaires"),
+        ("technology", "Technologies exposées"),
+    ]
+
+    for cat_key, cat_title in category_order:
+        cat_findings = [f for f in result.findings if f.category == cat_key]
+        if not cat_findings:
+            continue
+        print(f" {cyan('●')} {bold(cat_title)}")
+        for f in cat_findings:
+            if f.status == "pass":
+                icon = green("✓")
+                print(f"   {icon} {f.title}")
+            elif f.status == "warning":
+                icon = yellow("⚠")
+                print(f"   {icon} {bold(f.title)}")
+            else:
+                icon = red("✗")
+                print(f"   {icon} {bold(f.title)}")
+        print()
+
+    print(f" {hr}")
 
     # Score & Status
     status_label = {
@@ -86,18 +128,32 @@ def print_report(result: ScanResult) -> None:
         green if result.score >= 75 else (yellow if result.score >= 50 else red)
     )
 
-    print(f"Score : {score_color(bold(f'{result.score}/100'))}")
-    print(f"Statut : {score_color(bold(status_label))}")
     print()
-    print(hr)
+    print(f" Score : {score_color(bold(f'{result.score}/100'))} {gray(f'(Note : {result.grade})')}")
+    print(f" Statut : {score_color(bold(status_label))}")
 
-    # Detailed issues
+    issue_count = result.stats.warning + result.stats.critical
+    if issue_count == 0:
+        print()
+        print(f" {green('✓')} {bold('Félicitations ! Aucun problème de sécurité passif détecté.')}")
+    else:
+        issue_text = (
+            "1 problème nécessite"
+            if issue_count == 1
+            else f"{issue_count} problèmes nécessitent"
+        )
+        print()
+        print(f" {yellow('⚠')} {bold(f'{issue_text} votre attention.')}")
+
+    print()
+    print(f" {hr}")
+
+    # Detailed actionable issues
     issues = [f for f in result.findings if f.status in ("fail", "warning")]
-    passed = [f for f in result.findings if f.status == "pass"]
 
     if issues:
         print()
-        print(bold("Points d'attention et recommandations :"))
+        print(bold(" Points d'attention et recommandations :"))
         print()
 
         for issue in issues:
@@ -111,48 +167,40 @@ def print_report(result: ScanResult) -> None:
 
             status_icon = red("✗") if issue.status == "fail" else yellow("⚠")
 
-            print(f"{status_icon} {severity_badge} {bold(issue.title)}")
-            print()
-            print(f"  Description:\n  {issue.description}")
-            print()
+            print(f" {status_icon} {severity_badge} {bold(issue.title)}")
+            print(f"   {issue.description}")
 
             if issue.detected_value:
-                print(f"  Valeur détectée:\n  {cyan(issue.detected_value)}")
-                print()
+                print(f"\n   {gray('Valeur détectée :')} {cyan(issue.detected_value)}")
 
             if issue.importance:
-                print(f"  Importance:\n  {issue.importance}")
-                print()
+                print(f"\n   {bold('Pourquoi ?')}")
+                print(f"   {gray(issue.importance)}")
 
             if issue.recommendation:
-                print(f"  Recommendation:\n  {issue.recommendation}")
-                print()
+                print(f"\n   {bold('Comment corriger ?')}")
+                print(f"   {issue.recommendation}")
 
             if issue.remediation_snippet:
-                print("  Configuration suggérée:")
+                print(f"\n   {gray('Exemple de configuration :')}")
                 for line in issue.remediation_snippet.splitlines():
-                    print(f"    {cyan(line)}")
-                print()
+                    print(f"     {cyan(line)}")
 
             if issue.cwe:
-                print(f"  Référence: {gray(issue.cwe)}")
-                print()
+                print(f"\n   {gray(f'Référence : {issue.cwe}')}")
 
-            print(gray("·" * 50))
             print()
-    else:
-        print()
-        print(f"  {green('✓')} {bold('Félicitations ! Aucun problème de sécurité passif détecté.')}")
-        print()
+            print(f" {gray('·' * 50)}")
+            print()
 
     # Summary count
     print(
-        f"Contrôles réussis : {green(str(result.stats.passed))} • "
+        f" Contrôles réussis : {green(str(result.stats.passed))} • "
         f"Avertissements : {yellow(str(result.stats.warning))} • "
         f"Critiques : {red(str(result.stats.critical))}"
     )
-    print(hr)
-    print(dim("Analyse passive Securio • Aucun test intrusif effectué."))
+    print(f" {hr}")
+    print(f" {dim('Analyse passive Securio • Aucun test intrusif effectué.')}")
     print()
 
 
@@ -196,6 +244,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     target_url = args.url
     is_json = args.json_output
 
+    # Step 0: Display banner upfront if human terminal output
+    if not is_json:
+        print_banner(animated=True)
+
     # Interactive mode if no target URL is provided
     if not target_url:
         if is_json:
@@ -208,16 +260,14 @@ def main(argv: Optional[List[str]] = None) -> int:
             )
             return 2
 
-        print(bold("Securio"))
-        print()
         try:
-            target_url = input("URL à analyser :\n> ").strip()
+            target_url = input(f" {bold('URL à analyser :')}\n > ").strip()
         except (KeyboardInterrupt, EOFError):
             print("\nAbandon.")
             return 2
 
         if not target_url:
-            print(red("✗ Aucune URL spécifiée. Abandon."))
+            print(f" {red('✗ Aucune URL spécifiée. Abandon.')}")
             return 2
         print()
 
@@ -228,13 +278,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         if is_json:
             print(json.dumps({"error": str(e)}, ensure_ascii=False), file=sys.stderr)
         else:
-            print(f"{red('✗')} Erreur de validation : {e}", file=sys.stderr)
+            print(f" {red('✗')} Erreur de validation : {e}", file=sys.stderr)
         return 2
 
     # Step 2: Run scan
     if not is_json:
-        print_banner()
-        print(f"Analyse de {cyan(validated_target.normalized_url)}")
+        print(f" {bold('Analyse de')} {cyan(validated_target.normalized_url)}")
         print()
 
     try:
@@ -244,7 +293,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         if is_json:
             print(json.dumps({"error": str(e)}, ensure_ascii=False), file=sys.stderr)
         else:
-            print(f"\n{red('✗')} Échec de l'analyse : {e}", file=sys.stderr)
+            print(f"\n {red('✗')} Échec de l'analyse : {e}", file=sys.stderr)
         return 2
 
     # Step 3: Render report
@@ -252,7 +301,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
     else:
         print()
-        print("Analyse terminée.")
+        print(f" {green('✓')} {bold('Analyse terminée.')}")
         print_report(result)
 
     # Exit code: 1 if any critical/fail finding exists, 0 otherwise

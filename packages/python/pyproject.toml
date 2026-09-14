@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "securio"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fast, passive security health scanner for public websites"
 readme = "README.md"
 license = "MIT"
