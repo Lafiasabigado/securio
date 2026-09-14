@@ -11,7 +11,7 @@ from .models import Finding, ScanResult
 from .scanner import run_security_scan
 from .ssrf import validate_and_resolve_target
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 # ANSI terminal colors (gracefully disabled when not in TTY or NO_COLOR is set)
 _IS_TTY = sys.stdout.isatty() and "NO_COLOR" not in os.environ
@@ -228,6 +228,12 @@ Exemples:
         help="Sortie au format JSON pour l'intégration CI/CD.",
     )
     parser.add_argument(
+        "--no-banner",
+        action="store_true",
+        dest="no_banner",
+        help="Masquer la bannière ASCII au démarrage.",
+    )
+    parser.add_argument(
         "-v",
         "--version",
         action="version",
@@ -245,7 +251,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     is_json = args.json_output
 
     # Step 0: Display banner upfront if human terminal output
-    if not is_json:
+    if not is_json and not args.no_banner:
         print_banner(animated=True)
 
     # Interactive mode if no target URL is provided

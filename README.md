@@ -3,8 +3,16 @@
 > **L'application et CLI d'audit de sécurité web passif instantané.**  
 > Testez gratuitement la robustesse de votre site en 5 secondes, sans installation et sans risque d'intrusion, directement sur le web ou depuis votre terminal.
 
+<div align="center">
+
+[🇫🇷 Français](README.md) • [🇬🇧 English](README.en.md)
+
+</div>
+
 [![Site web en production](https://img.shields.io/badge/Production-securioapp.vercel.app-2563eb?style=for-the-badge&logo=vercel)](https://securioapp.vercel.app/)
+[![PyPI version](https://img.shields.io/pypi/v/securio.svg?style=for-the-badge&logo=pypi&color=3776AB)](https://pypi.org/project/securio/)
 [![npm version](https://img.shields.io/npm/v/securio-cli.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/securio-cli)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python)](https://pypi.org/project/securio/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -19,7 +27,44 @@ Accédez à l'application web déployée sur Vercel :
 
 ---
 
-## 💻 Securio CLI — Disponible sur npm
+## 🐍 Securio Python CLI — Disponible sur PyPI
+
+Le CLI officiel en Python est disponible sur PyPI : [**`https://pypi.org/project/securio/`**](https://pypi.org/project/securio/).
+
+Il est conçu pour les développeurs Python, les ingénieurs DevSecOps et les administrateurs système souhaitant intégrer des audits de sécurité non intrusifs dans leurs scripts et pipelines CI/CD.
+
+### Installation
+
+```bash
+pip install securio
+```
+
+Pour mettre à jour vers la dernière version :
+
+```bash
+pip install --upgrade securio
+```
+
+### Utilisation
+
+```bash
+# Analyser un site web
+securio https://example.com
+
+# Mode sortie JSON (pour intégration CI/CD)
+securio https://example.com --json
+
+# Mode interactif
+securio
+
+# Afficher la version ou l'aide
+securio --version
+securio --help
+```
+
+---
+
+## 💻 Securio CLI Node.js — Disponible sur npm
 
 **Securio CLI** est officiellement disponible sous forme de package npm : [**`securio-cli`**](https://www.npmjs.com/package/securio-cli).
 
@@ -146,9 +191,14 @@ securityhealth/
 │   ├── scanner/          # Moteur d'analyse passif partagé (@securio/scanner)
 │   │   ├── src/          # Types, modules HTTP, TLS, Headers, Cookies, SSRF
 │   │   └── package.json
-│   └── cli/              # Package npm Securio CLI (securio-cli)
-│       ├── src/          # CLI interactif, formatters, spinner, bannières
-│       ├── package.json  # Déclaration des binaires `securio` et `securio-cli`
+│   ├── cli/              # Package npm Securio CLI (securio-cli)
+│   │   ├── src/          # CLI interactif Node.js, formatters, spinner, bannières
+│   │   ├── package.json  # Déclaration des binaires `securio` et `securio-cli`
+│   │   └── README.md
+│   └── python/           # Package officiel PyPI (securio)
+│       ├── securio/      # Moteur scanner et CLI Python
+│       ├── tests/        # 49 tests unitaires pytest
+│       ├── pyproject.toml
 │       └── README.md
 ├── package.json          # Configuration Workspaces npm
 └── tsconfig.json         # Configuration TypeScript
