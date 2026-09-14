@@ -11,7 +11,7 @@ from .models import Finding, ScanResult
 from .scanner import run_security_scan
 from .ssrf import validate_and_resolve_target
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # ANSI terminal colors (gracefully disabled when not in TTY or NO_COLOR is set)
 _IS_TTY = sys.stdout.isatty() and "NO_COLOR" not in os.environ
@@ -43,6 +43,10 @@ def red(text: str) -> str:
     return _c("31", text)
 
 
+def blue(text: str) -> str:
+    return _c("94", text)
+
+
 def cyan(text: str) -> str:
     return _c("36", text)
 
@@ -64,11 +68,11 @@ BANNER_ASCII = [
 def print_banner(animated: bool = False) -> None:
     print()
     for line in BANNER_ASCII:
-        print(cyan(line))
+        print(blue(line))
         if animated and _IS_TTY:
             time.sleep(0.015)
     print()
-    print(f" {bold('Securio CLI')} {gray(f'v{__version__}')}")
+    print(f" {bold('Securio CLI')} {gray(f'v{__version__}')}  {yellow(bold('[Python Edition]'))}")
     print(f" {gray('Security made visible.')}")
     print()
 
@@ -200,7 +204,7 @@ def print_report(result: ScanResult) -> None:
         f"Critiques : {red(str(result.stats.critical))}"
     )
     print(f" {hr}")
-    print(f" {dim('Analyse passive Securio • Aucun test intrusif effectué.')}")
+    print(f" {dim('Analyse passive Securio (Python Engine) • Aucun test intrusif effectué.')}")
     print()
 
 
@@ -233,11 +237,12 @@ Exemples:
         dest="no_banner",
         help="Masquer la bannière ASCII au démarrage.",
     )
+    py_ver = f"{sys.version_info.major}.{sys.version_info.minor}"
     parser.add_argument(
         "-v",
         "--version",
         action="version",
-        version=f"%(prog)s {__version__}",
+        version=f"%(prog)s {__version__} (Python {py_ver})",
         help="Afficher la version du scanner.",
     )
     return parser
@@ -304,7 +309,9 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Step 3: Render report
     if is_json:
-        print(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
+        data = result.to_dict()
+        data["engine"] = f"python/{sys.version_info.major}.{sys.version_info.minor}"
+        print(json.dumps(data, indent=2, ensure_ascii=False))
     else:
         print()
         print(f" {green('✓')} {bold('Analyse terminée.')}")

@@ -1475,7 +1475,7 @@ function printScanReport(result) {
     console.log(` ${HR}`);
   }
   console.log(`
- ${c.muted("Analyse passive Securio \u2022 Aucun test intrusif effectu\xE9.")}
+ ${c.muted("Analyse passive Securio (Node.js Engine) \u2022 Aucun test intrusif effectu\xE9.")}
 `);
 }
 function printFindingLine(finding) {
@@ -1627,7 +1627,7 @@ async function promptForUrl() {
 }
 
 // src/utils/version.ts
-var CLI_VERSION = "0.1.0";
+var CLI_VERSION = "0.1.1";
 
 // src/ui/banner.ts
 var BANNER_LINES = [
@@ -1646,7 +1646,7 @@ async function displayBanner(animated = false) {
       console.log(c.cyan(line));
     }
     console.log(`
- ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}`);
+ ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}  ${c.green(c.bold("[Node.js Edition]"))}`);
     console.log(` ${c.muted("Security made visible.")}
 `);
     return;
@@ -1658,7 +1658,7 @@ async function displayBanner(animated = false) {
   }
   await new Promise((r) => setTimeout(r, 40));
   console.log(`
- ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}`);
+ ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}  ${c.green(c.bold("[Node.js Edition]"))}`);
   console.log(` ${c.muted("Security made visible.")}
 `);
 }

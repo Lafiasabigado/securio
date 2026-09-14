@@ -1,0 +1,60 @@
+name: Publish Node CLI to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (skip actual publish)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build-and-publish:
+    name: Build & Publish securio-cli
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write   # npm provenance (OIDC)
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build scanner package
+        working-directory: packages/scanner
+        run: npm run build
+
+      - name: Build CLI package
+        working-directory: packages/cli
+        run: npm run build
+
+      - name: Verify CLI binary runs
+        working-directory: packages/cli
+        run: node dist/cli.js --version
+
+      - name: Publish to npm
+        if: ${{ !inputs.dry_run }}
+        working-directory: packages/cli
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run publish
+        if: ${{ inputs.dry_run }}
+        working-directory: packages/cli
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

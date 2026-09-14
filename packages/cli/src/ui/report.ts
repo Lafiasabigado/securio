@@ -107,7 +107,7 @@ export function printScanReport(result: ScanResult): void {
     console.log(` ${HR}`);
   }
 
-  console.log(`\n ${c.muted("Analyse passive Securio • Aucun test intrusif effectué.")}\n`);
+  console.log(`\n ${c.muted("Analyse passive Securio (Node.js Engine) • Aucun test intrusif effectué.")}\n`);
 }
 
 function printFindingLine(finding: Finding): void {

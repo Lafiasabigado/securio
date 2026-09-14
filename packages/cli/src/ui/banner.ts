@@ -18,7 +18,7 @@ export async function displayBanner(animated = false): Promise<void> {
     for (const line of BANNER_LINES) {
       console.log(c.cyan(line));
     }
-    console.log(`\n ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}`);
+    console.log(`\n ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}  ${c.green(c.bold("[Node.js Edition]"))}`);
     console.log(` ${c.muted("Security made visible.")}\n`);
     return;
   }
@@ -30,6 +30,6 @@ export async function displayBanner(animated = false): Promise<void> {
     await new Promise((r) => setTimeout(r, 20));
   }
   await new Promise((r) => setTimeout(r, 40));
-  console.log(`\n ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}`);
+  console.log(`\n ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}  ${c.green(c.bold("[Node.js Edition]"))}`);
   console.log(` ${c.muted("Security made visible.")}\n`);
 }

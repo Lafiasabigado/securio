@@ -1,6 +1,6 @@
 {
   "name": "securio-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Analyseur de sécurité web passive en ligne de commande",
   "type": "module",
   "bin": {
