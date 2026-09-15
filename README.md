@@ -73,19 +73,17 @@ Il permet aux développeurs d'auditer la sécurité passive de n'importe quel si
 ### Exécution instantanée (sans installation préalable)
 
 ```bash
-# Analyser un site web directement
-npx securio https://example.com
-
-# Ou avec le nom complet du package
 npx securio-cli https://example.com
 ```
+
+> Le package npm `securio` est un autre projet. Utilisez **`securio-cli`** avec `npx`.
 
 ### Mode interactif
 
 Lancez simplement la commande sans argument pour être guidé :
 
 ```bash
-npx securio
+npx securio-cli
 ```
 
 ```text
@@ -197,7 +195,7 @@ securityhealth/
 │   │   └── README.md
 │   └── python/           # Package officiel PyPI (securio)
 │       ├── securio/      # Moteur scanner et CLI Python
-│       ├── tests/        # 49 tests unitaires pytest
+│       ├── tests/        # tests unitaires pytest
 │       ├── pyproject.toml
 │       └── README.md
 ├── package.json          # Configuration Workspaces npm
@@ -230,6 +228,12 @@ npm run dev
 ```
 
 Ouvrez ensuite [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+
+---
+
+## Périmètre (V1)
+
+Securio est un **contrôle d'hygiène HTTP passif** : TLS, en-têtes, cookies, contenu mixte, formulaires et exposition technique. Ce n'est pas un scanner de vulnérabilités applicatives (pas d'injection, pas de crawl authentifié, pas de matching CVE).
 
 ---
 

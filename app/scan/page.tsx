@@ -37,15 +37,14 @@ function ScanExecution() {
       { timestamp: "00:00.045", level: "info", message: "Vérification de l'adresse et des serveurs de noms..." },
     ]);
 
-    // Timed progression through steps
+    // Timed progression through steps — status lines stay informational until the API returns
     const timer1 = setTimeout(() => {
       if (!isMounted) return;
       setCurrentStage(2);
       setProgress(35);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "pass", message: "Le site répond correctement." },
-        { timestamp: getTimestamp(), level: "info", message: "Vérification du certificat de sécurité SSL et du cadenas HTTPS..." },
+        { timestamp: getTimestamp(), level: "info", message: "Négociation TLS et inspection du certificat..." },
       ]);
     }, 700);
 
@@ -55,8 +54,7 @@ function ScanExecution() {
       setProgress(58);
       setLogs((prev) => [
         ...prev,
-        { timestamp: getTimestamp(), level: "pass", message: "Cadenas HTTPS validé avec succès." },
-        { timestamp: getTimestamp(), level: "info", message: "Examen des protections contre les attaques de navigateur..." },
+        { timestamp: getTimestamp(), level: "info", message: "Lecture des en-têtes de sécurité HTTP..." },
       ]);
     }, 1400);
 
@@ -96,11 +94,27 @@ function ScanExecution() {
         }
 
         const data: ScanResult = json.data;
+        const tlsFinding = data.findings.find(
+          (finding) =>
+            finding.id === "tls-cert-valid" ||
+            finding.id === "tls-cert-invalid" ||
+            finding.id === "https-missing"
+        );
+        const tlsLevel: LogEntry["level"] =
+          tlsFinding?.status === "fail" ? "fail" : tlsFinding?.status === "warning" ? "warn" : "pass";
 
         setLogs((prev) => [
           ...prev,
-          { timestamp: getTimestamp(), level: "pass", message: `Formulaires et endpoints vérifiés.` },
-          { timestamp: getTimestamp(), level: "pass", message: `Calcul du score de santé : ${data.score}/100 (Note ${data.grade}).` },
+          {
+            timestamp: getTimestamp(),
+            level: tlsLevel,
+            message: tlsFinding?.title ?? "Inspection HTTPS terminée.",
+          },
+          {
+            timestamp: getTimestamp(),
+            level: data.stats.critical > 0 ? "fail" : "pass",
+            message: `Analyse terminée : ${data.score}/100 (note ${data.grade}).`,
+          },
           { timestamp: getTimestamp(), level: "info", message: "Génération de votre rapport détaillé..." },
         ]);
 

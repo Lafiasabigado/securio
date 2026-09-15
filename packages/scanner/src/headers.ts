@@ -1,4 +1,10 @@
+import { CSP_REMEDIATION_SNIPPET, inspectCspScriptSrc, summarizeCspIssues } from "./csp.js";
 import type { Finding } from "./types.js";
+
+const CSP_REFERENCES = [
+  { title: "Guide CSP MDN", url: "https://developer.mozilla.org/fr/docs/Web/HTTP/CSP" },
+  { title: "Aide-mémoire OWASP CSP", url: "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html" },
+];
 
 export function analyzeSecurityHeaders(headers: Record<string, string>): Finding[] {
   const findings: Finding[] = [];
@@ -16,42 +22,15 @@ export function analyzeSecurityHeaders(headers: Record<string, string>): Finding
       description: "La réponse HTTP ne définit pas d'en-tête Content-Security-Policy.",
       importance: "Sans CSP, le navigateur exécute aveuglément tout script injecté, exposant votre site aux attaques par Cross-Site Scripting (XSS) et vol de session.",
       recommendation: "Définissez un en-tête Content-Security-Policy strict limitant les sources de scripts, styles et objets autorisés.",
-      remediationSnippet: "Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-rAnd0m'; object-src 'none'; base-uri 'self';",
-      referenceLinks: [
-        { title: "Guide CSP MDN", url: "https://developer.mozilla.org/fr/docs/Web/HTTP/CSP" },
-        { title: "Aide-mémoire OWASP CSP", url: "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html" },
-      ],
+      remediationSnippet: CSP_REMEDIATION_SNIPPET,
+      referenceLinks: CSP_REFERENCES,
       cwe: "CWE-693",
     });
   } else {
-    // Inspect CSP script directives for script execution weaknesses (XSS)
-    const scriptDirectiveMatch = csp.match(/script-src([^;]+)/i);
-    const defaultDirectiveMatch = csp.match(/default-src([^;]+)/i);
-    const scriptDirectives = scriptDirectiveMatch
-      ? scriptDirectiveMatch[1]
-      : defaultDirectiveMatch
-      ? defaultDirectiveMatch[1]
-      : "";
+    const cspDisplay = csp.length > 80 ? `${csp.substring(0, 80)}...` : csp;
+    const summary = summarizeCspIssues(inspectCspScriptSrc(csp));
 
-    const hasWildcardScript = scriptDirectives.includes("*");
-    const hasHttpScript = /http:\/\//i.test(scriptDirectives);
-
-    if (hasWildcardScript || hasHttpScript) {
-      findings.push({
-        id: "header-csp-permissive",
-        category: "headers",
-        categoryTitle: "En-têtes de sécurité",
-        title: "Content-Security-Policy affaibli (wildcard '*' ou protocole HTTP détecté)",
-        severity: "medium",
-        status: "warning",
-        description: "L'en-tête CSP est présent mais contient des directives très permissives (wildcard * ou protocoles HTTP non chiffrés).",
-        importance: "L'utilisation de wildcards réduit considérablement la protection offerte par le CSP contre les attaques XSS.",
-        recommendation: "Restreignez les sources de scripts aux domaines d'origine ('self') et aux services sécurisés HTTPS.",
-        remediationSnippet: "Content-Security-Policy: default-src 'self'; script-src 'self' https:;",
-        detectedValue: csp.length > 80 ? `${csp.substring(0, 80)}...` : csp,
-        cwe: "CWE-1021",
-      });
-    } else {
+    if (summary.status === "pass") {
       findings.push({
         id: "header-csp-pass",
         category: "headers",
@@ -62,7 +41,27 @@ export function analyzeSecurityHeaders(headers: Record<string, string>): Finding
         description: "Une politique de sécurité de contenu restreignant l'exécution de ressources non autorisées est en place.",
         importance: "Bloque activement les attaques par injection de script XSS et les charges malveillantes non signées.",
         recommendation: "Poursuivez la surveillance de vos directives CSP et envisagez le reporting avec 'report-to'.",
-        detectedValue: csp.length > 80 ? `${csp.substring(0, 80)}...` : csp,
+        detectedValue: cspDisplay,
+      });
+    } else {
+      const listed = summary.labels.join(", ");
+      findings.push({
+        id: summary.status === "fail" ? "header-csp-unsafe" : "header-csp-permissive",
+        category: "headers",
+        categoryTitle: "En-têtes de sécurité",
+        title:
+          summary.status === "fail"
+            ? "Content-Security-Policy trop permissif pour les scripts"
+            : "Content-Security-Policy affaibli",
+        severity: summary.severity,
+        status: summary.status,
+        description: `L'en-tête CSP est présent mais la politique d'exécution des scripts est trop ouverte (${listed}).`,
+        importance: "Une CSP trop large n'empêche pas l'exécution de scripts injectés (XSS) : 'unsafe-inline', 'unsafe-eval', data: et les wildcards vident la protection.",
+        recommendation: "Restreignez script-src à 'self' et à des nonces ou hashes. Évitez 'unsafe-inline', 'unsafe-eval', data: et le schéma https: sans hôte.",
+        remediationSnippet: CSP_REMEDIATION_SNIPPET,
+        detectedValue: cspDisplay,
+        referenceLinks: CSP_REFERENCES,
+        cwe: "CWE-1021",
       });
     }
   }

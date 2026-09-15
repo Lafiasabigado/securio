@@ -11,7 +11,7 @@ ${c.bold("Securio CLI")} ${c.muted(`v${CLI_VERSION}`)}
 ${c.muted("Analyseur de sécurité web passive pour développeurs")}
 
 ${c.bold("UTILISATION")}
-  ${c.cyan("$")} npx securio [options] [url]
+  ${c.cyan("$")} npx securio-cli [options] [url]
   ${c.cyan("$")} securio [options] [url]
 
 ${c.bold("ARGUMENTS")}

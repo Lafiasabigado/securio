@@ -10,6 +10,7 @@
     "build": "npm --workspace=@securio/scanner run build && next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "npm --workspace=@securio/scanner test",
     "build:scanner": "npm --workspace=@securio/scanner run build",
     "build:cli": "npm --workspace=securio-cli run build",
     "build:all": "npm --workspace=@securio/scanner run build && npm --workspace=securio-cli run build"

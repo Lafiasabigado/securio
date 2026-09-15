@@ -72,19 +72,17 @@ securio --help
 ### Zero-install instant run (npx)
 
 ```bash
-# Scan a website directly
-npx securio https://example.com
-
-# Or using the full package name
 npx securio-cli https://example.com
 ```
+
+> The npm package `securio` is a different project. Use **`securio-cli`** with `npx`.
 
 ### Interactive Mode
 
 Simply run the command with no arguments:
 
 ```bash
-npx securio
+npx securio-cli
 ```
 
 ```text
@@ -195,7 +193,7 @@ securityhealth/
 │   │   └── README.md
 │   └── python/           # Official PyPI package (securio)
 │       ├── securio/      # Python audit engine and CLI
-│       ├── tests/        # 49 pytest unit and integration tests
+│       ├── tests/        # pytest unit and integration tests
 │       ├── pyproject.toml
 │       └── README.md
 ├── package.json          # npm workspace configuration
@@ -228,6 +226,12 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Scope (V1)
+
+Securio is a **passive HTTP hygiene check**: TLS, headers, cookies, mixed content, forms, and tech exposure. It is not an application vulnerability scanner (no injection tests, no authenticated crawl, no CVE matching).
 
 ---
 

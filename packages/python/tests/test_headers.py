@@ -60,6 +60,58 @@ class TestHeaderChecks(unittest.TestCase):
         f = next(item for item in findings if item.id == "header-xfo-pass")
         self.assertEqual(f.status, "pass")
 
+    def test_unsafe_eval_is_fail(self):
+        findings = analyze_security_headers(
+            {"content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-eval'"}
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-unsafe")
+        self.assertEqual(f.status, "fail")
+        self.assertEqual(f.severity, "high")
+
+    def test_unsafe_inline_is_warning(self):
+        findings = analyze_security_headers(
+            {"content-security-policy": "script-src 'self' 'unsafe-inline'"}
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-permissive")
+        self.assertEqual(f.status, "warning")
+        self.assertEqual(f.severity, "high")
+
+    def test_strict_dynamic_does_not_flag_unsafe_inline(self):
+        findings = analyze_security_headers(
+            {
+                "content-security-policy": "script-src 'nonce-abc' 'strict-dynamic' 'unsafe-inline'"
+            }
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-pass")
+        self.assertEqual(f.status, "pass")
+
+    def test_https_scheme_is_warning(self):
+        findings = analyze_security_headers(
+            {"content-security-policy": "script-src 'self' https:"}
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-permissive")
+        self.assertEqual(f.status, "warning")
+
+    def test_data_uri_is_fail(self):
+        findings = analyze_security_headers(
+            {"content-security-policy": "script-src 'self' data:"}
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-unsafe")
+        self.assertEqual(f.status, "fail")
+
+    def test_csp_without_script_src_is_fail(self):
+        findings = analyze_security_headers(
+            {"content-security-policy": "frame-ancestors 'self'"}
+        )
+        f = next(item for item in findings if item.id.startswith("header-csp-"))
+        self.assertEqual(f.id, "header-csp-unsafe")
+        self.assertEqual(f.status, "fail")
+
 
 if __name__ == "__main__":
     unittest.main()

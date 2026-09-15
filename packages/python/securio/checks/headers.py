@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from typing import Dict, List
-from ..models import Finding
+from ..models import Finding, FindingStatus, Severity
 
 CATEGORY_KEY = "headers"
 CATEGORY_TITLE = "En-têtes de sécurité"
@@ -14,6 +14,73 @@ SAFE_REFERRERS = (
     "same-origin",
     "origin-when-cross-origin",
 )
+
+CSP_REMEDIATION_SNIPPET = (
+    "Content-Security-Policy: default-src 'self'; script-src 'self'; "
+    "object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+)
+
+
+def inspect_csp_script_src(csp: str) -> List[Dict[str, str]]:
+    """Inspect script-src (else default-src) for XSS-relevant weaknesses."""
+    issues: List[Dict[str, str]] = []
+    script_match = re.search(r"script-src([^;]*)", csp, re.IGNORECASE)
+    default_match = re.search(r"default-src([^;]*)", csp, re.IGNORECASE)
+
+    if script_match:
+        tokens = [token.lower() for token in script_match.group(1).split() if token]
+    elif default_match:
+        tokens = [token.lower() for token in default_match.group(1).split() if token]
+    else:
+        return [
+            {
+                "kind": "unconstrained",
+                "label": "aucune directive script-src ni default-src",
+                "level": "fail",
+            }
+        ]
+
+    has_strict_dynamic = "'strict-dynamic'" in tokens
+
+    if "'unsafe-eval'" in tokens:
+        issues.append({"kind": "unsafe-eval", "label": "'unsafe-eval'", "level": "fail"})
+    if "'unsafe-inline'" in tokens and not has_strict_dynamic:
+        issues.append(
+            {"kind": "unsafe-inline", "label": "'unsafe-inline'", "level": "warning"}
+        )
+    if any(token == "data:" or token.startswith("data:") for token in tokens):
+        issues.append({"kind": "data", "label": "source data:", "level": "fail"})
+    if any(token == "blob:" or token.startswith("blob:") for token in tokens):
+        issues.append({"kind": "blob", "label": "source blob:", "level": "fail"})
+    if any(token == "http:" or token.startswith("http://") for token in tokens):
+        issues.append(
+            {"kind": "http", "label": "source HTTP non chiffré", "level": "fail"}
+        )
+    if "https:" in tokens:
+        issues.append(
+            {
+                "kind": "https-scheme",
+                "label": "schéma https: (tous les hôtes HTTPS)",
+                "level": "warning",
+            }
+        )
+    if any(token == "*" or token.startswith("*.") for token in tokens):
+        issues.append({"kind": "wildcard", "label": "wildcard *", "level": "warning"})
+
+    return issues
+
+
+def summarize_csp_issues(issues: List[Dict[str, str]]) -> Dict[str, object]:
+    if not issues:
+        return {"status": "pass", "severity": "low", "labels": []}
+
+    has_fail = any(issue["level"] == "fail" for issue in issues)
+    has_unsafe_inline = any(issue["kind"] == "unsafe-inline" for issue in issues)
+    return {
+        "status": "fail" if has_fail else "warning",
+        "severity": "high" if has_fail or has_unsafe_inline else "medium",
+        "labels": [issue["label"] for issue in issues],
+    }
 
 
 def analyze_security_headers(headers: Dict[str, str]) -> List[Finding]:
@@ -36,45 +103,18 @@ def analyze_security_headers(headers: Dict[str, str]) -> List[Finding]:
                     "exposant votre site aux attaques par Cross-Site Scripting (XSS) et vol de session."
                 ),
                 recommendation="Définissez un en-tête Content-Security-Policy strict limitant les sources de scripts, styles et objets autorisés.",
-                remediation_snippet=(
-                    "Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-rAnd0m'; "
-                    "object-src 'none'; base-uri 'self';"
-                ),
+                remediation_snippet=CSP_REMEDIATION_SNIPPET,
                 cwe="CWE-693",
             )
         )
     else:
-        script_match = re.search(r"script-src([^;]+)", csp, re.IGNORECASE)
-        default_match = re.search(r"default-src([^;]+)", csp, re.IGNORECASE)
-        script_directives = ""
-        if script_match:
-            script_directives = script_match.group(1)
-        elif default_match:
-            script_directives = default_match.group(1)
-
-        has_wildcard = "*" in script_directives
-        has_http = "http://" in script_directives.lower()
-
         val_display = f"{csp[:80]}..." if len(csp) > 80 else csp
+        summary = summarize_csp_issues(inspect_csp_script_src(csp))
+        status = str(summary["status"])
+        labels = summary["labels"]
+        assert isinstance(labels, list)
 
-        if has_wildcard or has_http:
-            findings.append(
-                Finding(
-                    id="header-csp-permissive",
-                    category=CATEGORY_KEY,
-                    category_title=CATEGORY_TITLE,
-                    title="Content-Security-Policy affaibli (wildcard '*' ou protocole HTTP détecté)",
-                    severity="medium",
-                    status="warning",
-                    description="L'en-tête CSP est présent mais contient des directives très permissives (wildcard * ou protocoles HTTP non chiffrés).",
-                    importance="L'utilisation de wildcards réduit considérablement la protection offerte par le CSP contre les attaques XSS.",
-                    recommendation="Restreignez les sources de scripts aux domaines d'origine ('self') et aux services sécurisés HTTPS.",
-                    remediation_snippet="Content-Security-Policy: default-src 'self'; script-src 'self' https:;",
-                    detected_value=val_display,
-                    cwe="CWE-1021",
-                )
-            )
-        else:
+        if status == "pass":
             findings.append(
                 Finding(
                     id="header-csp-pass",
@@ -87,6 +127,39 @@ def analyze_security_headers(headers: Dict[str, str]) -> List[Finding]:
                     importance="Bloque activement les attaques par injection de script XSS et les charges malveillantes non signées.",
                     recommendation="Poursuivez la surveillance de vos directives CSP et envisagez le reporting avec 'report-to'.",
                     detected_value=val_display,
+                )
+            )
+        else:
+            listed = ", ".join(str(label) for label in labels)
+            finding_status: FindingStatus = "fail" if status == "fail" else "warning"
+            finding_severity: Severity = "high" if summary["severity"] == "high" else "medium"
+            findings.append(
+                Finding(
+                    id="header-csp-unsafe" if finding_status == "fail" else "header-csp-permissive",
+                    category=CATEGORY_KEY,
+                    category_title=CATEGORY_TITLE,
+                    title=(
+                        "Content-Security-Policy trop permissif pour les scripts"
+                        if finding_status == "fail"
+                        else "Content-Security-Policy affaibli"
+                    ),
+                    severity=finding_severity,
+                    status=finding_status,
+                    description=(
+                        "L'en-tête CSP est présent mais la politique d'exécution des scripts "
+                        f"est trop ouverte ({listed})."
+                    ),
+                    importance=(
+                        "Une CSP trop large n'empêche pas l'exécution de scripts injectés (XSS) : "
+                        "'unsafe-inline', 'unsafe-eval', data: et les wildcards vident la protection."
+                    ),
+                    recommendation=(
+                        "Restreignez script-src à 'self' et à des nonces ou hashes. "
+                        "Évitez 'unsafe-inline', 'unsafe-eval', data: et le schéma https: sans hôte."
+                    ),
+                    remediation_snippet=CSP_REMEDIATION_SNIPPET,
+                    detected_value=val_display,
+                    cwe="CWE-1021",
                 )
             )
 

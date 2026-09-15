@@ -27,14 +27,10 @@
 Aucune installation préalable requise :
 
 ```bash
-npx securio https://example.com
-```
-
-ou :
-
-```bash
 npx securio-cli https://example.com
 ```
+
+> Le package npm `securio` est un autre projet. Utilisez **`securio-cli`** avec `npx`.
 
 ### Installation dans un projet
 
