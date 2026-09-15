@@ -33,7 +33,7 @@ export default function HomePage() {
   };
 
   const copyCliCommand = () => {
-    navigator.clipboard.writeText("npx securio scan https://acme-cloud.io --json");
+    navigator.clipboard.writeText("npx securio-cli https://example.com --json");
     setCopiedCli(true);
     setTimeout(() => setCopiedCli(false), 2000);
   };
@@ -432,7 +432,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-xs text-slate-800 space-y-1 overflow-x-auto bg-slate-50 p-4 rounded-xl border border-slate-200 font-mono">
-            <div className="text-slate-900 font-bold">$ npx securio scan https://acme-cloud.io --json</div>
+            <div className="text-slate-900 font-bold">$ npx securio-cli https://example.com --json</div>
             <div className="text-emerald-700">[OK] {isEn ? "HTTPS Certificate valid (verified)" : "Cadenas HTTPS valide (certificat vérifié)"}</div>
             <div className="text-emerald-700">[OK] {isEn ? "Session cookies security active" : "Protection des cookies de session active"}</div>
             <div className="text-red-600 font-semibold">[WARNING] {isEn ? "Content-Security-Policy header missing" : "En-tête Content-Security-Policy manquant"}</div>
